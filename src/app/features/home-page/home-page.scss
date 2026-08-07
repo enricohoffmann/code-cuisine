@@ -1,0 +1,18 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.home-wrapper {
+    height: 100vh;
+    height: 100dvh;
+    background-color: var.$olive-green;
+    @include mixins.setup-display-flex(column, flex-start, center);
+    overflow-x: auto;
+}
+
+.home-section {
+    max-width: var.$max-content-width;
+    min-width: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

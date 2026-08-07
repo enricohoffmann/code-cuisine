@@ -1,1 +1,4 @@
-<p>header-component works!</p>
+<header class="app-header mt-32">
+    <div class="app-header-icon" 
+        [ngClass]="(headerVariant() == 'white' ? 'app-header-icon--white' : 'app-header-icon--colored')"></div>
+</header>

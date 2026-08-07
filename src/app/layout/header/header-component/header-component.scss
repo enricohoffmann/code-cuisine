@@ -1,0 +1,22 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.app-header {
+    height: 48px;
+    width: 100%;
+    @include mixins.setup-display-flex(row, flex-start, center);
+}
+
+.app-header-icon {
+    width: 142px;
+    height: 48px;
+
+    &--colored {
+        @include mixins.setup-image('/assets/icons/logo-colored.svg');
+    }
+
+    &--white {
+        @include mixins.setup-image('/assets/icons/logo-white.svg');
+    }
+    
+}
