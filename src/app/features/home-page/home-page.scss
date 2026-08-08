@@ -32,11 +32,35 @@ app-header-component {
 
 .hero-main {
     grid-area: main;
+    padding-top: 25vh;
+    @include mixins.setup-display-flex(column, flex-start, flex-start);
+
+    &--notice {
+        @include mixins.setup-font('Quicksand', clamp(1.50rem, calc(1.071rem + 2.143vw), 3.00rem), 600, rgba(245, 245, 220, 1));
+    }
+
+    h1 {
+        @include mixins.setup-font('Ubuntu', clamp(4.00rem, calc(3.286rem + 3.571vw), 6.50rem), 700, rgba(250, 240, 230, 1));
+    }
 }
 
 .hero-dishes {
     grid-area: dishes;
+    @include mixins.setup-display-flex(column, flex-start, center);
 }
+
+.dish-img {
+    width: 460px;
+
+    &--first {
+        margin-top: -10%;
+    }
+}
+
+.dish-img:not(.dish-img--first) {
+    margin-top: -28%;
+}
+
 
 app-call-to-action {
     grid-area: action;

@@ -3,11 +3,19 @@
     <section class="home-section">
         <app-header-component [headerVariant]="'white'"></app-header-component>
 
-        <main class="hero-main"></main>
+        <main class="hero-main">
+            <p class="hero-main--notice mb-12">AI-Powered recipe generator</p>
+            <h1 class="mb-32">Code à Cuisine</h1>
+            <app-button-component></app-button-component>
+        </main>
 
         <section class="hero-dishes">
             @for(image of heroImages; track image;){
-                <img src="{{image}}" alt="" >
+                <img 
+                    src="{{image}}" alt="" 
+                    class="dish-img" [style.z-index]="($index + 10)"
+                    [class.dish-img--first]="$first"
+                    >
             }
         </section>
 
