@@ -10,9 +10,38 @@
 }
 
 .home-section {
+    overflow: hidden;
     max-width: var.$max-content-width;
     min-width: 0;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-areas: 
+        "header dishes" 
+        "main dishes" 
+        "action dishes" 
+        "footer dishes";
+}
+
+app-header-component {
+    grid-area: header;
+}
+
+.hero-main {
+    grid-area: main;
+}
+
+.hero-dishes {
+    grid-area: dishes;
+}
+
+app-call-to-action {
+    grid-area: action;
+}
+
+app-footer-component {
+    grid-area: footer;
 }

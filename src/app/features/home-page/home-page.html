@@ -3,7 +3,17 @@
     <section class="home-section">
         <app-header-component [headerVariant]="'white'"></app-header-component>
 
+        <main class="hero-main"></main>
 
+        <section class="hero-dishes">
+            @for(image of heroImages; track image;){
+                <img src="{{image}}" alt="" >
+            }
+        </section>
+
+        <app-call-to-action></app-call-to-action>
+
+        <app-footer-component></app-footer-component>
 
     </section>
 

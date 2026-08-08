@@ -5,6 +5,7 @@
     height: 48px;
     width: 100%;
     @include mixins.setup-display-flex(row, flex-start, center);
+    background-color: transparent;
 }
 
 .app-header-icon {
