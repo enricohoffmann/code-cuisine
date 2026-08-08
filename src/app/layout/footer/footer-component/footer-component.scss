@@ -1,0 +1,20 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.footer-section {
+    @include mixins.setup-display-flex(row, flex-start, center, 12px);
+     @include mixins.setup-font('Quicksand', 16px, 500, rgba(250, 240, 230, 1));
+}
+
+.footer-section > a {
+    text-decoration: none;
+    cursor: pointer;
+   
+    padding: 10px 14px;
+    background-color: transparent;
+    transition: background-color 125ms ease-in;
+
+    &:hover {
+        background-color: rgba(247, 232, 218, 0.24);
+    }
+}

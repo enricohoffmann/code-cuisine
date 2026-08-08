@@ -7,6 +7,8 @@
     background-color: var.$olive-green;
     @include mixins.setup-display-flex(column, flex-start, center);
     overflow-x: auto;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .home-section {
@@ -14,8 +16,6 @@
     max-width: var.$max-content-width;
     min-width: 0;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto 1fr auto auto;
@@ -52,7 +52,8 @@ app-header-component {
 }
 
 .dish-img {
-    width: 460px;
+    width: clamp(295px, calc(242.143px + 16.518vw), 480px);
+    transition: width 125ms ease-in;
 
     &--first {
         margin-top: -10%;
@@ -70,4 +71,15 @@ app-call-to-action {
 
 app-footer-component {
     grid-area: footer;
+}
+
+
+@media(max-width: 1140px) {
+    .home-wrapper {
+        padding-right: 0;
+    }
+
+    .dish-img {
+
+    }
 }

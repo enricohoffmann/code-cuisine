@@ -32,7 +32,7 @@
     height: 14px;
     @include mixins.setup-image('/assets/icons/arrow-white.svg');
     opacity: 1;
-    
+    animation: none;
 }
 
 .icon-animation-start {
@@ -63,4 +63,8 @@
   50% {
     opacity: 0;
   }
+}
+
+@media (max-width: 1150px) {
+    
 }
