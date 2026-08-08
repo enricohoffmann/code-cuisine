@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-call-to-action',
@@ -8,4 +8,13 @@ import { Component, input } from '@angular/core';
 })
 export class CallToAction {
   inspiration = input<string | null>(null);
+  animationState = signal<'enter' | 'leave' | null>(null);
+
+  onPointerEnter(): void {
+    this.animationState.set('enter');
+  }
+
+  onPointerLeave(): void {
+    this.animationState.set('leave');
+  }
 }

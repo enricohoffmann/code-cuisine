@@ -3,9 +3,17 @@
         <p class="cta__inspriation">{{inspiration()}}</p>
     } 
     
-    <button class="cta-button" type="button">
+    <button 
+        class="cta-button" 
+        type="button"
+        (pointerenter)="onPointerEnter()"
+        (pointerleave)="onPointerLeave()"
+        > 
         <ng-content></ng-content>
-        <div class="cta-button-icon"></div>
+        <div class="cta-button-icon"
+            [class.icon-animation-start]="animationState() === 'enter'"
+            [class.icon-animation-end]="animationState() === 'leave'"
+        ></div>
     </button>
     
 </aside>

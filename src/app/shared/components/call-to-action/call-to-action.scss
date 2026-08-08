@@ -31,4 +31,36 @@
     width: 24px;
     height: 14px;
     @include mixins.setup-image('/assets/icons/arrow-white.svg');
+    opacity: 1;
+    
+}
+
+.icon-animation-start {
+  animation: iconBlinkStart 1s ease;
+}
+
+.icon-animation-end {
+  animation: iconBlinkEnd 1s ease;
+}
+
+@keyframes iconBlinkStart {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes iconBlinkEnd {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
