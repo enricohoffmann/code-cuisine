@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-call-to-action',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './call-to-action.html',
   styleUrl: './call-to-action.scss',
 })
-export class CallToAction {}
+export class CallToAction {
+  inspiration = input<string | null>(null);
+}

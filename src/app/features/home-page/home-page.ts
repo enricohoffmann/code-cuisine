@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../shared/components/button-component/button
 
 @Component({
   selector: 'app-home-page',
-  imports: [HeaderComponent, CallToAction, FooterComponent, ButtonComponent],
+  imports: [HeaderComponent, FooterComponent, ButtonComponent, CallToAction],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss',
 })

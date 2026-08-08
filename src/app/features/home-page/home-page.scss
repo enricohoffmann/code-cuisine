@@ -36,11 +36,13 @@ app-header-component {
     @include mixins.setup-display-flex(column, flex-start, flex-start);
 
     &--notice {
-        @include mixins.setup-font('Quicksand', clamp(1.50rem, calc(1.071rem + 2.143vw), 3.00rem), 600, rgba(245, 245, 220, 1));
+        @include mixins.setup-font('Quicksand', 
+            clamp(1.50rem, calc(1.071rem + 2.143vw), 3.00rem), 600, rgba(245, 245, 220, 1));
     }
 
     h1 {
-        @include mixins.setup-font('Ubuntu', clamp(4.00rem, calc(3.286rem + 3.571vw), 6.50rem), 700, rgba(250, 240, 230, 1));
+        @include mixins.setup-font('Ubuntu', 
+            clamp(4.00rem, calc(3.286rem + 3.571vw), 6.50rem), 700, rgba(250, 240, 230, 1));
     }
 }
 

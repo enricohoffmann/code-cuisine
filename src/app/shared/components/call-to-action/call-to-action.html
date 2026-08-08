@@ -1,1 +1,11 @@
-<p>call-to-action works!</p>
+<aside class="cta">
+    @if(inspiration()){
+        <p class="cta__inspriation">{{inspiration()}}</p>
+    } 
+    
+    <button class="cta-button" type="button">
+        <ng-content></ng-content>
+        <div class="cta-button-icon"></div>
+    </button>
+    
+</aside>
