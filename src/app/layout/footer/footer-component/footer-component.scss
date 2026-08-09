@@ -3,7 +3,11 @@
 
 .footer-section {
     @include mixins.setup-display-flex(row, flex-start, center, 12px);
-     @include mixins.setup-font('Quicksand', 16px, 500, rgba(250, 240, 230, 1));
+    @include mixins.setup-font('Quicksand', 16px, 500, rgba(250, 240, 230, 1));
+
+    &--colored {
+        color: rgba(57, 96, 57, 1);
+    }
 }
 
 .footer-section > a {

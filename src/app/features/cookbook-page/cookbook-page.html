@@ -1,10 +1,58 @@
 <div class="cookbook-wrapper">
     <section class="cookbook-section">
-        <app-header-component [headerVariant]="'colored'"></app-header-component>
+        <app-header-component [headerVariant]="'colored'" class="test"></app-header-component>
+
+        <!-- Back to verher bin ich gekommen-->
         <app-call-to-action
+            class="cta-back"
             [callToActionVariant]="'backward'"
             [colorVariant]="'colored'"
-            (actionButtonEvent)="goToGenerator()"
+            
         >Back</app-call-to-action>
+
+        <section>
+            <h1>Cookbook</h1>
+            <p>From quick bites to gourmet delights, 
+                explore them all in our ultimate cookbook and get 
+                inspired for your next culinary adventure.</p>
+
+            <aside>
+                <div>
+                    <h5>Most liked recipes</h5>
+                    <div></div>
+                </div>
+
+                <!-- Meist genutze Rezepte -->
+                <div>
+
+                </div>
+                
+            </aside>
+
+            <!-- Rezeptübersicht als eigenes Grid -->
+            <main>
+                Eigene cards
+            </main>
+
+            <div>
+                < 1 2 3 ... 8 >
+            </div>
+
+        </section>
+
+
+
+
+        <!-- Forward zum Rezeptgenerator -->
+        <app-call-to-action 
+            class="test"
+            [colorVariant]="'colored'"
+            (actionButtonEvent)="goToGenerator()"
+            >Generate new recipie</app-call-to-action>
+
+
+        <!-- Footer -->
+        <app-footer-component [colorVariant]="'colored'"></app-footer-component>
+
     </section>
 </div>

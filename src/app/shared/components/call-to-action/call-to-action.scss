@@ -3,7 +3,6 @@
 
 .cta {
   @include mixins.setup-display-flex(row, flex-start, center);
-  margin-bottom: 10vh;
 
   &__inspriation {
     @include mixins.setup-font('Ubuntu', clamp(1.50rem, calc(1.357rem + 0.714vw), 2.00rem), 500, rgba(250, 240, 230, 1));
@@ -101,7 +100,6 @@
 @media(max-width: 900px) {
   .cta {
     @include mixins.setup-display-flex(column, flex-end, flex-start, 12px);
-    margin-bottom: 0;
   }
 
   .cta__inspriation {
