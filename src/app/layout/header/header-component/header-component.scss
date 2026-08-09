@@ -9,8 +9,9 @@
 }
 
 .app-header-icon {
-    width: 142px;
-    height: 48px;
+    box-sizing: border-box;
+    height: 100%;
+    aspect-ratio: 142 / 48;
 
     &--colored {
         @include mixins.setup-image('/assets/icons/logo-colored.svg');
@@ -20,4 +21,11 @@
         @include mixins.setup-image('/assets/icons/logo-white.svg');
     }
     
+}
+
+@media(max-width: 768px){
+    .app-header {
+        margin-top: 16px;
+        height: 32px;
+    }
 }

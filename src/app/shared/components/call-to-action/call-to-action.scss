@@ -2,37 +2,37 @@
 @use 'abstracts/mixins' as mixins;
 
 .cta {
-    @include mixins.setup-display-flex(row, flex-start, center);
-    margin-bottom: 10vh;
+  @include mixins.setup-display-flex(row, flex-start, center);
+  margin-bottom: 10vh;
 
-    &__inspriation {
-        @include mixins.setup-font('Ubuntu', 32px, 500, rgba(250, 240, 230, 1));
-        margin-right: 32px;
-    }
+  &__inspriation {
+    @include mixins.setup-font('Ubuntu', clamp(1.50rem, calc(1.357rem + 0.714vw), 2.00rem), 500, rgba(250, 240, 230, 1));
+    margin-right: 32px;
+  }
 }
 
 .cta-button {
-    cursor: pointer;
-    outline: none;
-    border: none;
-    @include mixins.setup-display-flex(row, center, center, 12px);
-    padding: 12px 18px;
-    @include mixins.setup-font('Quicksand', 20px, 500, rgba(250, 240, 230, 1));
-    background-color: transparent;
-    transition: background-color 125ms ease-in;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  @include mixins.setup-display-flex(row, center, center, 12px);
+  padding: 12px 18px;
+  @include mixins.setup-font('Quicksand', 20px, 500, rgba(250, 240, 230, 1));
+  background-color: transparent;
+  transition: background-color 125ms ease-in;
 
-    &:hover {
-        background-color: rgba(247, 232, 218, 0.24);
-    }
+  &:hover {
+    background-color: rgba(247, 232, 218, 0.24);
+  }
 
 }
 
 .cta-button-icon {
-    width: 24px;
-    height: 14px;
-    @include mixins.setup-image('/assets/icons/arrow-white.svg');
-    opacity: 1;
-    animation: none;
+  width: 24px;
+  height: 14px;
+  @include mixins.setup-image('/assets/icons/arrow-white.svg');
+  opacity: 1;
+  animation: none;
 }
 
 .icon-animation-start {
@@ -44,6 +44,7 @@
 }
 
 @keyframes iconBlinkStart {
+
   0%,
   100% {
     opacity: 1;
@@ -55,6 +56,7 @@
 }
 
 @keyframes iconBlinkEnd {
+
   0%,
   100% {
     opacity: 1;
@@ -65,6 +67,20 @@
   }
 }
 
-@media (max-width: 1150px) {
-    
+@media (max-width: 1150px) {}
+
+@media(max-width: 900px) {
+  .cta {
+    @include mixins.setup-display-flex(column, flex-end, flex-start, 12px);
+    margin-bottom: 0;
+  }
+
+  .cta__inspriation {
+    margin-right: 0;
+    margin-left: 12px;
+  }
+
+  .cta-button {
+    padding: 12px 12px;
+  }
 }
