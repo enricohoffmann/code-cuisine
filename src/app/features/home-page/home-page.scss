@@ -52,7 +52,9 @@ app-header-component {
 }
 
 .dish-img {
+    padding-right: 8px;
     width: clamp(290px, 35vw, 460px);
+    filter: drop-shadow(6px -2px 4px rgba(0, 0, 0, 0.25));
 
     &--first {
         margin-top: -10%;

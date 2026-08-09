@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { HeaderVariant } from '../../../shared/utils/types';
+import { ColorVariant } from '../../../shared/utils/types';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -9,5 +9,5 @@ import { NgClass } from '@angular/common';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
-  headerVariant = input.required<HeaderVariant>();
+  headerVariant = input.required<ColorVariant>();
 }

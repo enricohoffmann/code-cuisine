@@ -1,0 +1,20 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.cookbook-wrapper {
+    height: 100vh;
+    height: 100dvh;
+    background-color: rgba(255, 255, 255, 1);
+    @include mixins.setup-display-flex(column, flex-start, center);
+    overflow-x: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.cookbook-section {
+    overflow: hidden;
+    max-width: var.$max-content-width;
+    min-width: 0;
+    width: 100%;
+}
+

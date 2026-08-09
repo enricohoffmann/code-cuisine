@@ -15,31 +15,60 @@
   cursor: pointer;
   outline: none;
   border: none;
-  @include mixins.setup-display-flex(row, center, center, 12px);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 12px;
   padding: 12px 18px;
-  @include mixins.setup-font('Quicksand', 20px, 500, rgba(250, 240, 230, 1));
   background-color: transparent;
   transition: background-color 125ms ease-in;
 
-  &:hover {
+  &--forward {
+    grid-template-areas: "text icon";
+  }
+
+  &--backward {
+    grid-template-areas: "icon text";
+  }
+
+  &:hover:not(.cta-button-icon--backward) {
     background-color: rgba(247, 232, 218, 0.24);
   }
 
 }
 
+.cta-button-text {
+  grid-area: text;
+  @include mixins.setup-font('Quicksand', 20px, 500, rgba(250, 240, 230, 1));
+
+  &--colored {
+    color: rgba(30, 85, 21, 1);
+  }
+}
+
 .cta-button-icon {
+  align-self: center;
+  grid-area: icon;
   width: 24px;
   height: 14px;
   @include mixins.setup-image('/assets/icons/arrow-white.svg');
   opacity: 1;
   animation: none;
+
+  &--backward {
+    transform: rotate(180deg);
+  }
+
+  &--colored {
+    @include mixins.setup-image('/assets/icons/arrow-colored.svg');
+  }
+
 }
 
-.icon-animation-start {
+.icon-animation-start:not(.cta-button-icon--backward) {
   animation: iconBlinkStart 1s ease;
 }
 
-.icon-animation-end {
+.icon-animation-end:not(.cta-button-icon--backward) {
   animation: iconBlinkEnd 1s ease;
 }
 

@@ -4,10 +4,12 @@ import { ResultsPage } from './features/results-page/results-page';
 import { RecipePage } from './features/recipe-page/recipe-page';
 import { CookbookPage } from './features/cookbook-page/cookbook-page';
 import { ImprintPage } from './features/imprint-page/imprint-page';
+import { RecipeGeneratorPage } from './features/recipe-generator-page/recipe-generator-page';
 
 export const routes: Routes = [
     { path: '', component: HomePage, pathMatch: 'full' },
     { path: 'home', component: HomePage },
+    { path: 'generate', component: RecipeGeneratorPage},
     { path: 'results', component: ResultsPage },
     { path: 'recipe/:id', component: RecipePage },
     { path: 'cookbook', component: CookbookPage },

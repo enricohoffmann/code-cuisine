@@ -5,12 +5,19 @@
     
     <button 
         class="cta-button" 
+        [ngClass]="(callToActionVariant() === 'forward' ? 'cta-button--forward' : 'cta-button--backward')"
         type="button"
         (pointerenter)="onPointerEnter()"
         (pointerleave)="onPointerLeave()"
+        (click)="actionButtonEvent.emit()"
         > 
-        <ng-content></ng-content>
+        <span class="cta-button-text" [class.cta-button-text--colored]="colorVariant() === 'colored'">
+            <ng-content></ng-content>
+        </span>
+        
         <div class="cta-button-icon"
+            [class.cta-button-icon--backward]="callToActionVariant() === 'backward'"
+            [class.cta-button-icon--colored]="colorVariant() === 'colored'"
             [class.icon-animation-start]="animationState() === 'enter'"
             [class.icon-animation-end]="animationState() === 'leave'"
         ></div>

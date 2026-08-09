@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header-component/header-component";
 import { CallToAction } from '../../shared/components/call-to-action/call-to-action';
 import { FooterComponent } from '../../layout/footer/footer-component/footer-component';
 import { ButtonComponent } from '../../shared/components/button-component/button-component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class HomePage  {
     '/assets/img/hero-dish-05.webp',
   ];
 
+  private readonly router = inject(Router);
 
+  goToCookbook(): void {
+    this.router.navigate(['cookbook']);
+  }
 
 }

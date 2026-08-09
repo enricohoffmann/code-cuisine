@@ -19,7 +19,10 @@
             }
         </section>
 
-        <app-call-to-action [inspiration]="'Hungry for inspiration?'">Go to cookbook</app-call-to-action>
+        <app-call-to-action 
+            [inspiration]="'Hungry for inspiration?'"
+            (actionButtonEvent)="goToCookbook()"
+            >Go to cookbook</app-call-to-action>
 
         <app-footer-component></app-footer-component>
 
