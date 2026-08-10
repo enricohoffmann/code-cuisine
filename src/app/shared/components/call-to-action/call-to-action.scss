@@ -29,7 +29,7 @@
     grid-template-areas: "icon text";
   }
 
-  &:hover:not(.cta-button-icon--backward) {
+  &:hover:not(.cta-button--backward) {
     background-color: rgba(247, 232, 218, 0.24);
   }
 

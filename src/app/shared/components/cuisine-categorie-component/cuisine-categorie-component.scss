@@ -4,6 +4,7 @@
 .category-card {
     display: grid;
     grid-template-rows: 45px 1fr;
+    cursor: pointer;
 }
 
 .category-card__header {
@@ -17,5 +18,9 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
+    transition: box-shadow 125ms ease-in;
+}
 
+.category-card:hover .category-card__image {
+    box-shadow: 0px 0px 11px 2px rgba(0,0,0,0.6);
 }
