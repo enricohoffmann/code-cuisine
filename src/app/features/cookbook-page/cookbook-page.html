@@ -3,52 +3,50 @@
         <app-header-component [headerVariant]="'colored'" class="test"></app-header-component>
 
         <!-- Back to verher bin ich gekommen-->
-        <app-call-to-action
-            class="cta-back"
-            [callToActionVariant]="'backward'"
-            [colorVariant]="'colored'"
-            
-        >Back</app-call-to-action>
+        <app-call-to-action class="cta-back" [callToActionVariant]="'backward'"
+            [colorVariant]="'colored'">Back</app-call-to-action>
 
-        <section>
-            <h1>Cookbook</h1>
-            <p>From quick bites to gourmet delights, 
-                explore them all in our ultimate cookbook and get 
-                inspired for your next culinary adventure.</p>
+        <main class="cookbook-main">
 
-            <aside>
-                <div>
-                    <h5>Most liked recipes</h5>
-                    <div></div>
-                </div>
+            <div class="cookbook-main-top">
+                <h1 class="cookbook-main-top__title">Cookbook</h1>
+                <p class="cookbook-main-top__description">From quick bites to gourmet delights,
+                    explore them all in our ultimate cookbook and get
+                    inspired for your next culinary adventure.</p>
 
-                <!-- Meist genutze Rezepte -->
-                <div>
+                <aside class="cookbook-main-top__highlights">
+                    <header class="highlights-header">
+                        <h5>Most liked recipes</h5>
+                        <div></div>
+                    </header>
 
-                </div>
-                
-            </aside>
+                    <!-- Meist genutze Rezepte -->
+                    <main class="highlights-main">
 
-            <!-- Rezeptübersicht als eigenes Grid -->
-            <main>
-                Eigene cards
-            </main>
+                    </main>
 
-            <div>
-                < 1 2 3 ... 8 >
+                </aside>
             </div>
 
-        </section>
+
+
+            <!-- Rezeptübersicht als eigenes Grid -->
+            <section class="cookbook-cuisine-categories">
+                Eigene cards
+            </section>
+
+            <div>
+                < 1 2 3 ... 8>
+            </div>
+
+        </main>
 
 
 
 
         <!-- Forward zum Rezeptgenerator -->
-        <app-call-to-action 
-            class="test"
-            [colorVariant]="'colored'"
-            (actionButtonEvent)="goToGenerator()"
-            >Generate new recipie</app-call-to-action>
+        <app-call-to-action class="test" [colorVariant]="'colored'" (actionButtonEvent)="goToGenerator()">Generate new
+            recipie</app-call-to-action>
 
 
         <!-- Footer -->
