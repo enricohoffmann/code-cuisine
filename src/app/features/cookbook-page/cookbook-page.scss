@@ -105,3 +105,33 @@
 app-footer-component {
     align-self: center;
 }
+
+@media (max-width: 900px) {
+    .cookbook-cuisine-categories {
+        grid-template-columns: repeat(2, minmax(0, 400px));
+    }
+}
+
+@media (max-width: 768px) {
+    .cookbook-main-top {
+        margin-top: 0;
+        padding: 24px 8px;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title" "description" "highlights";
+    }
+
+    .cta-back {
+        margin-top: 12px;
+    }
+
+    .cookbook-main-top__highlights {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 650px) {
+    .cookbook-cuisine-categories {
+        grid-template-columns: 1fr;
+    }
+}
