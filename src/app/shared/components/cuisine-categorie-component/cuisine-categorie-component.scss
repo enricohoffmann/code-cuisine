@@ -1,0 +1,21 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.category-card {
+    display: grid;
+    grid-template-rows: 45px 1fr;
+}
+
+.category-card__header {
+    @include mixins.setup-font('Quicksand', 28px, 500, rgba(30, 85, 21, 1));
+}
+
+.category-card__image {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+
+}

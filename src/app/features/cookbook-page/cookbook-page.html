@@ -21,9 +21,9 @@
                     </header>
 
                     <!-- Meist genutze Rezepte -->
-                    <main class="highlights-main">
+                    <div class="highlights-main">
 
-                    </main>
+                    </div>
 
                 </aside>
             </div>
@@ -32,12 +32,10 @@
 
             <!-- Rezeptübersicht als eigenes Grid -->
             <section class="cookbook-cuisine-categories">
-                Eigene cards
+                @for(number of [0, 1, 2, 3, 4, 5]; track number){
+                    <app-cuisine-categorie-component></app-cuisine-categorie-component>
+                }
             </section>
-
-            <div>
-                < 1 2 3 ... 8>
-            </div>
 
         </main>
 
@@ -45,12 +43,12 @@
 
 
         <!-- Forward zum Rezeptgenerator -->
-        <app-call-to-action class="test" [colorVariant]="'colored'" (actionButtonEvent)="goToGenerator()">Generate new
+        <app-call-to-action class="cta-forward mb-24" [colorVariant]="'colored'" (actionButtonEvent)="goToGenerator()">Generate new
             recipie</app-call-to-action>
 
 
         <!-- Footer -->
-        <app-footer-component [colorVariant]="'colored'"></app-footer-component>
+        <app-footer-component class="mb-32" [colorVariant]="'colored'"></app-footer-component>
 
     </section>
 </div>
