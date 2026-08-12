@@ -21,8 +21,10 @@
                     </header>
 
                     <!-- Meist genutze Rezepte -->
-                    <div class="highlights-main">
-
+                    <div class="highlights-cards">
+                        @for(number of [0,1,2,3]; track number) {
+                            <app-most-liked-component></app-most-liked-component>
+                        }
                     </div>
 
                 </aside>

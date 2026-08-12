@@ -1,0 +1,77 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.card-section {
+    flex: 0 0;
+    box-sizing: border-box;
+    background-color: rgba(219, 224, 219, 0.7);
+    border-radius: 16px;
+    width: clamp(250px, calc(215.714px + 10.714vw), 370px);
+    aspect-ratio: 280px / 106px;
+    padding: 16px 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "header likes" "body likes";
+    column-gap: 16px;
+    row-gap: 12px;
+}
+
+.card-header {
+    box-sizing: border-box;
+    grid-area: header;
+    @include mixins.setup-display-flex(row, flex-start, center, 10px);
+    @include mixins.setup-font('Quicksand', 16px, 500, rgba(57, 96, 57, 1));
+
+    &>div {
+        height: 16px;
+        aspect-ratio: 1 / 1;
+        @include mixins.setup-image('/assets/icons/schedule.svg');
+        align-self: center;
+    }
+
+    &>span {
+        line-height: 20px;
+    }
+}
+
+.card-body {
+    grid-area: body;
+    @include mixins.setup-font('Quicksand', 24px, 500, rgba(30, 85, 21, 1));
+    line-height: 100%;
+}
+
+.card-likes {
+
+    box-sizing: border-box;
+    background-color: rgba(57, 96, 57, 0.3);
+    border-radius: 30px;
+    @include mixins.setup-display-flex(row, flex-end, center, 4px);
+    padding: 6px 12px;
+
+    &>div {
+        height: 15px;
+        width: 16px;
+        @include mixins.setup-image('/assets/icons/favorite-dark.svg');
+        align-self: center;
+    }
+
+    &>span {
+        @include mixins.setup-font('Quicksand', 16px, 500, rgba(16, 49, 11, 1));
+    }
+}
+
+@media (max-width: 768px) {
+    .card-section {
+        column-gap: 6px;
+        row-gap: 10px;
+        padding: 12px 8px;
+    }
+
+    .card-header {
+        gap: 6px;
+    }
+
+    .card-likes {
+        padding: 4px 6px;
+    }
+}

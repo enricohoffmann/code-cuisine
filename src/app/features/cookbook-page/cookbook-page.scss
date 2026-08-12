@@ -40,7 +40,7 @@
     background-color: rgba(57, 96, 57, 0.04);
     border-radius: 20px;
     display: grid;
-    grid-template-columns: minmax(320px, 450px) 1fr;
+    grid-template-columns: minmax(320px, 450px) minmax(0, 1fr);
     grid-template-areas:
         "title highlights"
         "description highlights";
@@ -64,8 +64,8 @@
 
     &__highlights {
         grid-area: highlights;
-        display: grid;
-        @include mixins.setup-display-flex(column, center, flex-start);
+        min-width: 0;
+        @include mixins.setup-display-flex(column, center, flex-start, 16px);
     }
 
 }
@@ -86,6 +86,14 @@
     @include mixins.setup-image('/assets/icons/favorite.svg');
 }
 
+.highlights-cards {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 6px;
+    @include mixins.setup-display-flex(row, flex-start, center, 16px);
+}
+
 .cookbook-cuisine-categories {
     box-sizing: border-box;
     width: 100%;
@@ -99,12 +107,32 @@
     padding-inline: 8px;
 }
 
+
+
 .cta-forward {
     align-self: flex-end;
 }
 
 app-footer-component {
     align-self: center;
+}
+
+@media(max-width: 1000px) {
+    .cookbook-main-top {
+        margin-top: 0;
+        padding: 24px 8px;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title" "description" "highlights";
+    }
+
+    .cookbook-main-top__highlights {
+        margin-top: 24px;
+    }
+
+    .cta-back {
+        margin-top: 12px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -114,20 +142,9 @@ app-footer-component {
 }
 
 @media (max-width: 768px) {
-    .cookbook-main-top {
-        margin-top: 0;
-        padding: 24px 8px;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "title" "description" "highlights";
-    }
-
-    .cta-back {
-        margin-top: 12px;
-    }
-
-    .cookbook-main-top__highlights {
-        margin-top: 24px;
+    .cookbook-wrapper {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 

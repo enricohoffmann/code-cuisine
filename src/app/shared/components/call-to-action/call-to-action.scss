@@ -27,6 +27,7 @@
 
   &--backward {
     grid-template-areas: "icon text";
+    padding: 12px 12px;
   }
 
   &:hover:not(.cta-button--backward) {

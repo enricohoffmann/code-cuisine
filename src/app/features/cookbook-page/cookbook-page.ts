@@ -4,10 +4,11 @@ import { CallToAction } from "../../shared/components/call-to-action/call-to-act
 import { Router } from '@angular/router';
 import { FooterComponent } from "../../layout/footer/footer-component/footer-component";
 import { CuisineCategorieComponent } from '../../shared/components/cuisine-categorie-component/cuisine-categorie-component';
+import { MostLikedComponent } from '../../shared/components/most-liked-component/most-liked-component';
 
 @Component({
   selector: 'app-cookbook-page',
-  imports: [HeaderComponent, CallToAction, FooterComponent, CuisineCategorieComponent],
+  imports: [HeaderComponent, CallToAction, FooterComponent, CuisineCategorieComponent, MostLikedComponent],
   templateUrl: './cookbook-page.html',
   styleUrl: './cookbook-page.scss',
 })
