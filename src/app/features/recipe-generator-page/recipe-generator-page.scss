@@ -39,10 +39,10 @@
     grid-template-columns: repeat(2, minmax(auto, 1fr));
     grid-template-areas: "ingredient ingredient-list";
     column-gap: 32px;
+    margin-top: 42px;
 }
 
 .generator-ingredient {
-    margin-top: 42px;
     grid-area: ingredient;
 }
 
@@ -54,5 +54,77 @@
     background-color: rgba(57, 96, 57, 0.3);
     border-radius: 20px;
     padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: 176px;
+    align-content: flex-start;
 }
 
+.ingredient-input-area {
+    box-sizing: border-box;
+    min-width: 0;
+    width: 100%;
+    @include mixins.setup-display-flex(column, center, flex-start, 10px);
+
+    label {
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 500;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        background-color: rgba(250, 240, 230, 0.8);
+        border-radius: 20px;
+        font-size: 20px;
+        padding: 6px 18px;
+    }
+}
+
+.ingredient-size-area {
+    box-sizing: border-box;
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    grid-template-areas: "label label label" "size-input units-selector add-button";
+    column-gap: 12px;
+    row-gap: 10px;
+
+    label {
+        grid-area: label;
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 500;
+    }
+
+    input {
+        grid-area: size-input;
+        outline: none;
+        border: none;
+        background-color: rgba(250, 240, 230, 0.8);
+        border-radius: 20px;
+        font-size: 20px;
+        padding: 6px 18px;
+        text-align: center;
+    }
+
+    .unit-selector {
+        grid-area: units-selector;
+        
+    }
+
+    button {
+        
+        grid-area: add-button;
+    }
+}
+
+
+.ingredient-list {
+    background-color: rgba(57, 96, 57, 0.3);
+    border-radius: 20px;
+    padding: 25px;
+
+}
