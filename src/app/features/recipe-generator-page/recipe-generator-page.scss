@@ -1,0 +1,58 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+:host {
+    display: block;
+    @include mixins.setup-font('Quicksand', 16px, 500, rgba(30, 85, 21, 1));
+    overflow-y: auto;
+}
+
+.generator-section {
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: var.$max-content-width;
+    min-width: 0;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.generator-section > h1 {
+    font-size: clamp(2.00rem, calc(1.607rem + 1.964vw), 3.38rem);
+    line-height: 65px;
+    margin-top: 64px;
+    text-align: center;
+}
+
+.generator-description {
+    font-size: clamp(1.13rem, calc(1.018rem + 0.536vw), 1.50rem);
+    color: rgba(16, 49, 11, 1);
+    line-height: 32px;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.generator-selection {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
+    grid-template-areas: "ingredient ingredient-list";
+    column-gap: 32px;
+}
+
+.generator-ingredient {
+    margin-top: 42px;
+    grid-area: ingredient;
+}
+
+.generator-ingredient-list {
+    grid-area: ingredient-list;
+}
+
+.ingredient-section {
+    background-color: rgba(57, 96, 57, 0.3);
+    border-radius: 20px;
+    padding: 25px;
+}
+

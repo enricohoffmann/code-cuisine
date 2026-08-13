@@ -7,16 +7,6 @@
     overflow-y: auto;
 }
 
-.cookbook-wrapper {
-    min-height: 100dvh;
-    height: auto;
-    background-color: rgba(255, 255, 255, 1);
-    @include mixins.setup-display-flex(column, flex-start, center);
-    overflow-y: auto;
-    padding-left: 24px;
-    padding-right: 24px;
-}
-
 .cookbook-section {
     box-sizing: border-box;
     overflow: hidden;
@@ -138,13 +128,6 @@ app-footer-component {
 @media (max-width: 900px) {
     .cookbook-cuisine-categories {
         grid-template-columns: repeat(2, minmax(0, 400px));
-    }
-}
-
-@media (max-width: 768px) {
-    .cookbook-wrapper {
-        padding-left: 16px;
-        padding-right: 16px;
     }
 }
 

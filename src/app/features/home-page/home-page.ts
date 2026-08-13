@@ -27,4 +27,8 @@ export class HomePage  {
     this.router.navigate(['cookbook']);
   }
 
+  goToGenerator(): void {
+    this.router.navigate(['generate']);
+  }
+
 }
