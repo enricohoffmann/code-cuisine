@@ -7,7 +7,7 @@
 
         <article class="generator-selection">
             <div class="generator-ingredient">
-                <section class="ingredient-section">
+                <form class="ingredient-form">
                     <div class="ingredient-input-area">
                         <label for="ingredient">Ingredient</label>
                         <input type="text" id="ingredient" name="ingredient">
@@ -15,10 +15,18 @@
                     <div class="ingredient-size-area">
                         <label for="size">Serving size</label>
                         <input type="text" id="size" name="size">
-                        <div class="unit-selector"></div>
-                        <button type="button">+</button>
+                        <app-unit-component
+                            [isUnitSelected]="false"
+                            [isUnitsListOpen]="isUnitListOpen()"
+                            (isOpenChange)="isUnitListOpen.set($event)"
+                            (sendUnitSelection)="onChooseUnit($event)"
+                            class="unit-selector">{{currentUnit()}}
+                        </app-unit-component>
+                        <button type="submit" class="add-button">
+                            <div class="add-button__icon"></div>
+                        </button>
                     </div>
-                </section>
+                </form>
             </div>
 
             <div class="generator-ingredient-list">

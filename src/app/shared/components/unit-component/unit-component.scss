@@ -1,0 +1,88 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.unit-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.unit-selector-button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    min-width: 85px;
+    height: 100%;
+    @include mixins.setup-display-flex(row, center, center, 6px);
+    padding: 5px 10px;
+    border-radius: 48px;
+    background-color: rgba(250, 240, 230, 1);
+
+    &__content {
+        @include mixins.setup-font("Quicksand", 16px, 500, rgba(16, 49, 11, 1));
+        line-height: 18px;
+    }
+
+    &__icons {
+        position: relative;
+        box-sizing: border-box;
+        width: 10px;
+        aspect-ratio: 1/1;
+    }
+
+}
+
+.button-icon {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    width: 10px;
+    aspect-ratio: 10 / 5;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: opacity 125ms ease-out;
+    background-image: url('/assets/icons/arrow_drop_down.svg');
+    transition: transform 300ms ease-in;
+
+    &--up {
+        transform: rotate(180deg);
+    }
+
+}
+
+.units-list {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    top: 36px;
+    left: 0;
+    background-color: transparent;
+    @include mixins.setup-display-flex(column, center, flex-start, 6px);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 125ms ease-in, opacity 150ms ease-in;
+    pointer-events: none;
+
+    &__item {
+        width: 80%;
+        list-style-type: none;
+        border-radius: 48px;
+        padding: 4px 8px;
+        cursor: pointer;
+        z-index: 20;
+        transition: background-color 125ms ease-in;
+
+        &:hover {
+            background-color: rgba(250, 240, 230, 1);
+        }
+    }
+}
+
+.units-list-open {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: auto;
+}

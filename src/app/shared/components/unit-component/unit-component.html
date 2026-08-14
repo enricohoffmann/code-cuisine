@@ -1,0 +1,16 @@
+<section class="unit-section">
+    <button type="button" class="unit-selector-button" 
+        (click)="onUnitButtonClick(); $event.stopPropagation()">
+        <span class="unit-selector-button__content">
+            <ng-content></ng-content>
+        </span>
+        <div class="unit-selector-button__icons">
+            <div class="button-icon" [class.button-icon--up]="isUnitsListOpen()"></div>
+        </div>
+    </button>
+    <ul class="units-list" [class.units-list-open]="isUnitsListOpen()">
+        @for(unit of unitsList; track unit){
+            <li class="units-list__item" (click)="onUnitClick(unit)">{{unit}}</li>
+        }
+    </ul>
+</section>
