@@ -9,12 +9,27 @@
             <div class="generator-ingredient">
                 <form class="ingredient-form" [formGroup]="ingredientForm">
                     <div class="ingredient-input-area">
-                        <label for="ingredient">Ingredient</label>
-                        <input type="text" id="ingredient" name="ingredient" [formControl]="ingredientForm.controls.name">
+                        <label for="name">Ingredient</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            [formControl]="ingredientForm.controls.name"
+                            (pointerenter)="onInputEnter('name')"
+                            (pointerleave)="onInputLeave('name')"
+                            >
                     </div>
                     <div class="ingredient-size-area">
-                        <label for="size">Serving size</label>
-                        <input type="number" id="size" name="size" [min]="0" [formControl]="ingredientForm.controls.unitCount">
+                        <label for="unitCount">Serving size</label>
+                        <input 
+                            type="number" 
+                            id="unitCount" 
+                            name="unitCount" 
+                            [min]="0" 
+                            [formControl]="ingredientForm.controls.unitCount"
+                            (pointerenter)="onInputEnter('unitCount')"
+                            (pointerleave)="onInputLeave('unitCount')"
+                            >
                         <app-unit-component
                             [isUnitSelected]="false"
                             [isUnitsListOpen]="isUnitListOpen()"
