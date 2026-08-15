@@ -20,7 +20,7 @@
     background-color: rgba(250, 240, 230, 1);
 
     &__content {
-        @include mixins.setup-font("Quicksand", 16px, 500, rgba(16, 49, 11, 1));
+        @include mixins.setup-font("Quicksand", 18px, 500, rgba(16, 49, 11, 1));
         line-height: 18px;
     }
 

@@ -63,7 +63,7 @@
 
 .ingredient-input-area {
     box-sizing: border-box;
-    @include mixins.setup-display-flex(column, center, flex-start, 10px);
+    @include mixins.setup-display-flex(column, flex-start, flex-start, 10px);
 
     label {
         font-size: 20px;
@@ -71,7 +71,7 @@
         font-weight: 500;
     }
 
-    input {
+    &__input {
         box-sizing: border-box;
         min-width: 300px;
         outline: none;
@@ -80,6 +80,7 @@
         border-radius: 20px;
         font-size: 20px;
         padding: 6px 18px;
+        color: rgba(16, 49, 11, 0.6);
     }
 }
 
@@ -89,10 +90,15 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, auto));
-    grid-template-areas: "label label label" "size-input units-selector add-button";
+    grid-template-areas: 
+        "label label label" 
+        "size-input units-selector add-button"
+        "error error error"
+        ;
     column-gap: 12px;
     row-gap: 10px;
     justify-content: space-between;
+    align-content: flex-start;
 
     label {
         grid-area: label;
@@ -101,22 +107,27 @@
         font-weight: 500;
     }
 
-    input {
+    &__input {
         grid-area: size-input;
         outline: none;
         border: none;
         background-color: rgba(250, 240, 230, 0.8);
         border-radius: 20px;
-        font-size: 20px;
+        font-size: 18px;
         padding: 6px 18px;
         text-align: center;
+        color: rgba(16, 49, 11, 0.6)
     }
 
     .unit-selector {
-        grid-area: units-selector;
+        grid-area: rgba(16, 49, 11, 1);
 
     }
 
+}
+
+.input-writing {
+    color: rgba(16, 49, 11, 1);
 }
 
 .add-button {
@@ -148,4 +159,22 @@
     border-radius: 20px;
     padding: 25px;
     
+}
+
+.error-text {
+    box-sizing: border-box;
+    min-height: 18px;
+    color: rgb(209, 99, 79);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 125ms ease-in;
+    max-width: 300px;
+
+    &--quantity {
+        grid-area: error;
+    }
+
+    &--show {
+        opacity: 1;
+    }
 }

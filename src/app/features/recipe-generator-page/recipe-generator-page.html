@@ -11,13 +11,19 @@
                     <div class="ingredient-input-area">
                         <label for="name">Ingredient</label>
                         <input 
+                            class="ingredient-input-area__input"
+                            [class.input-writing]="isWritingIngredient()"
                             type="text" 
                             id="name" 
                             name="name" 
                             [formControl]="ingredientForm.controls.name"
-                            (pointerenter)="onInputEnter('name')"
-                            (pointerleave)="onInputLeave('name')"
+                            (focus)="onInputEnter('name')"
+                            (blur)="onInputLeave('name')"
                             >
+                        <span 
+                            class="error-text"
+                            [class.error-text--show]="getErrorMessage(ingredientForm.controls.name) !== null"
+                            >{{getErrorMessage(ingredientForm.controls.name)}}</span>
                     </div>
                     <div class="ingredient-size-area">
                         <label for="unitCount">Serving size</label>
@@ -27,8 +33,10 @@
                             name="unitCount" 
                             [min]="0" 
                             [formControl]="ingredientForm.controls.unitCount"
-                            (pointerenter)="onInputEnter('unitCount')"
-                            (pointerleave)="onInputLeave('unitCount')"
+                            (focus)="onInputEnter('unitCount')"
+                            (blur)="onInputLeave('unitCount')"
+                            class="ingredient-size-area__input"
+                            [class.input-writing]="isWritingServingSize()"
                             >
                         <app-unit-component
                             [isUnitSelected]="false"
@@ -40,6 +48,10 @@
                         <button type="submit" class="add-button">
                             <div class="add-button__icon"></div>
                         </button>
+                        <span 
+                            class="error-text error-text--quantity"
+                            [class.error-text--show]="getErrorMessage(ingredientForm) !== null && !isUnitListOpen()"
+                            >{{getErrorMessage(ingredientForm)}}</span>
                     </div>
                 </form>
             </div>

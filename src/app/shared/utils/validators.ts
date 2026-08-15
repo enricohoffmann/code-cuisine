@@ -37,24 +37,10 @@ export function maxWordLengthValidator(maxLength: number): ValidatorFn {
     };
 }
 
-export function maxUnitCountValidator(maxValue: number): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-        const value = control.value;
-        return value > maxValue ? { tooBig: true } : null;
-    };
-}
-
-export function minUnitCountValidator(minValue: number): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-        const value = control.value;
-        return value < minValue ? { toSmall: true } : null;
-    };
-}
-
 export function nanValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const value = control.value;
-        return Number.isNaN(value) ? { isNotANumber: true } : null;
+        return Number.isNaN(value) && Number.isFinite(value) ? null : { isNotANumber: true };
     };
 }
 
@@ -66,11 +52,19 @@ export function quantityValidator(): ValidatorFn {
 
         if (quantity === null || quantity === undefined || quantity === '') { return { invalidSize: true }; }
 
-        if(!currentLimit) { return { invalidUnit: true };}
+        if (!currentLimit) { return { invalidUnit: true }; }
 
         if (typeof quantity !== 'number' || !Number.isFinite(quantity)) { return { invalidSize: true }; }
 
-        if (quantity < currentLimit.min || quantity > currentLimit.max) { return { outOfRange: true }; }
+        if (quantity < currentLimit.min || quantity > currentLimit.max) {
+            return {
+                outOfRange: [
+                    unit,
+                    currentLimit.min,
+                    currentLimit.max
+                ]
+            };
+        }
 
         return null;
     };

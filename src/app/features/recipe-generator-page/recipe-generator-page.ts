@@ -2,9 +2,10 @@ import { Component, signal, computed } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header-component/header-component";
 import { UnitComponent } from '../../shared/components/unit-component/unit-component';
 import { IngredientForm, UnitVariant } from '../../shared/utils/types';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Ingredient } from '../../interfaces/ingredient-interface';
-import { maxWordLengthValidator, noWhitespaceValidator, quantityValidator } from '../../shared/utils/validators';
+import { maxWordLengthValidator, nanValidator, noWhitespaceValidator, quantityValidator } from '../../shared/utils/validators';
+import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class RecipeGeneratorPage {
         noWhitespaceValidator(), 
         maxWordLengthValidator(20)
       ]}),
-    unitCount: new FormControl(100, {nonNullable: true}),
+    unitCount: new FormControl(100, {nonNullable: true, validators: [nanValidator()]}),
     unit: new FormControl('gram', {nonNullable: true})
   }, {validators: quantityValidator()});
 
@@ -67,6 +68,16 @@ export class RecipeGeneratorPage {
     }
   }
 
+  getErrorMessage(control: AbstractControl | null): string | null {
+    if(control == null) {return null;}
+    if (!control.errors) { return null; }
+    if (control.untouched && control.invalid) { return null; }
 
+    const firstErrorKey = Object.keys(control.errors)[0];
+    const errorMessageFactory = VALIDATION_MESSAGES[firstErrorKey as keyof typeof VALIDATION_MESSAGES];
+    if (!errorMessageFactory) { return 'Unknown validation error.'; }
+
+    return errorMessageFactory(control.errors[firstErrorKey]);
+  }
 
 }
