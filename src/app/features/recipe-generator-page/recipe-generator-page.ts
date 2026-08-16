@@ -6,6 +6,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { Ingredient } from '../../interfaces/ingredient-interface';
 import { maxWordLengthValidator, nanValidator, noWhitespaceValidator, quantityValidator } from '../../shared/utils/validators';
 import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
+import { IngredientModel } from '../../models/ingredient-model';
 
 
 @Component({
@@ -21,7 +22,6 @@ export class RecipeGeneratorPage {
   isWritingServingSize = signal<boolean>(false);
 
   ingredientForm = new FormGroup<IngredientForm>({
-    id: new FormControl(0, { nonNullable: true }),
     name: new FormControl('', {
       nonNullable: true, validators:
         [
@@ -36,11 +36,7 @@ export class RecipeGeneratorPage {
     unit: new FormControl('gram', { nonNullable: true })
   }, { validators: quantityValidator() });
 
-  ingredients: Ingredient[] = [];
-
-  ingredientCount = computed(() => {
-    return this.ingredients.length;
-  });
+  ingredients: IngredientModel[] = [];
 
   ingredientsSorted = computed(() => {
     if (this.ingredients.length <= 1) { return this.ingredients; }
@@ -64,7 +60,7 @@ export class RecipeGeneratorPage {
       this.isWritingIngredient.set(false); 
       this.trimFormValues(fieldName);
     }
-    
+
     if (fieldName === 'unitCount') { this.isWritingServingSize.set(false); }
     
   }
@@ -90,20 +86,48 @@ export class RecipeGeneratorPage {
 
   onSubmit(): void {
     this.ingredientForm.markAllAsTouched();
-    console.log('Valid', this.ingredientForm.valid);
-    console.log(this.ingredientForm);
-
-    Object.entries(this.ingredientForm.controls).forEach(([key, control]) => {
-      console.log(key, control.valid, control.errors);
-    });
-
     if (this.ingredientForm.valid) {
       this.trimFormValues('name');
-      /* this.trimFormValues('unitCount'); */
       this.isSubmitted.set(true);
-      console.log(this.ingredientForm.value);
-
+      this.addIngredientToList();
+      this.resetIngredientForm();
+      console.log(this.ingredients);
+      
     }
+  }
+
+  addIngredientToList(): void {
+    const ingredient = new IngredientModel(this.ingredientForm.value, this.ingredients.length);
+    this.ingredients.push(ingredient);
+  }
+
+  resetIngredientForm(): void {
+    this.resetIngredientNameControl();
+    this.resetUnitCountControl();
+    this.resetUnitControl();
+    this.isSubmitted.set(false);
+  }
+
+  resetIngredientNameControl(): void {
+    const control = this.ingredientForm.controls.name;
+    control.setValue('');
+    control.markAsUntouched();
+    control.markAsPristine();
+  }
+
+  resetUnitCountControl(): void {
+    const control = this.ingredientForm.controls.unitCount;
+    control.setValue(100);
+    control.markAsUntouched();
+    control.markAsPristine();
+  }
+
+  resetUnitControl(): void {
+    const control = this.ingredientForm.controls.unit;
+    this.currentUnit.set('gram');
+    control.setValue('gram');
+    control.markAsUntouched();
+    control.markAsPristine();
   }
 
   preventEnterSubmit(event: Event): void {
