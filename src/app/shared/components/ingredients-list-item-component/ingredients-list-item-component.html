@@ -1,1 +1,46 @@
-<p>ingredients-list-item-component works!</p>
+<form class="ingredient-item">
+
+    <!-- dot -> immer gleich -->
+    <div class="dot"></div>
+
+    <!-- Anzahl bei readonly mit Einheit sonst ohne -->
+    @if(isEditMode()) {
+        <input class="quantity-edit" type="text">
+    }@else {
+        <span class="quantity-read">{{unitCountWithUnit}}</span>
+    }
+
+    <!-- Einheit nur bei Editmode -->
+    @if(isEditMode()) {
+        <app-unit-component
+            [isUnitsListOpen]="false"
+            [isUnitSelected]="false"
+        ></app-unit-component>
+    }
+
+    <!-- Name -->
+    <span class="ingredient-name">{{ingredientName}}</span>
+
+    <!-- edit oder check-button -->
+    @if(isEditMode()) {
+        <button class="form-button" type="submit">
+            <div class="form-button__safe"></div>
+        </button>
+    }@else {
+        <button class="form-button" type="button">
+            <div class="form-button__edit"></div>
+        </button>
+    }
+
+    <!-- delete button -->
+    <button class="form-button" type="button">
+        <div class="form-button__delete"></div>
+    </button>
+
+
+    <!-- Errortext -->
+    @if(isEditMode()){
+        <span>error</span>
+    }
+
+</form>

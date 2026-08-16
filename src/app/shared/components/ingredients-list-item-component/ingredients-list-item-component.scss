@@ -1,0 +1,74 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.ingredient-item {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas: "dot unit-count ingredient edit-button delete-button";
+    grid-template-columns: 8px 65px 1fr 22px 22px;
+    align-self: center;
+    column-gap: 12px;
+    @include mixins.setup-font('Quicksand', 18px, 500, rgba(0, 0, 0, 1));
+    margin-bottom: 16px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background-color 125ms ease-in;
+
+    &--writing {
+
+    }
+
+    &:hover:not(.ingredient-item--writing){
+        background-color: rgba(250, 240, 230, 1);
+    }
+}
+
+
+.dot {
+    grid-area: dot;
+    @include mixins.setup-display-flex(column, center, center);
+    width: 6px;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 9999px;
+    align-self: center;
+}
+
+.quantity-read {
+    grid-area: unit-count;
+    align-content: center;
+}
+
+.ingredient-name {
+    grid-area: ingredient;
+    align-content: center;
+}
+
+.form-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    width: 22px;
+    aspect-ratio: 1 / 1;
+    @include mixins.setup-display-flex(row, center, center);
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 125ms ease-in;
+
+    &__edit {
+        width: 19px;
+        aspect-ratio: 1 / 1;
+        @include mixins.setup-image('/assets/icons/edit.svg');
+    }
+
+    &__delete {
+        width: 19px;
+        aspect-ratio: 1 / 1;
+        @include mixins.setup-image('/assets/icons/delete.svg');
+    }
+
+    &:hover:not(.ingredient-item--writing) {
+        background-color: rgba(57, 96, 57, 0.3);
+    }
+
+}

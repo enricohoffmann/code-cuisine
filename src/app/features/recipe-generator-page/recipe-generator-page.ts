@@ -7,11 +7,12 @@ import { Ingredient } from '../../interfaces/ingredient-interface';
 import { maxWordLengthValidator, nanValidator, noWhitespaceValidator, quantityValidator } from '../../shared/utils/validators';
 import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
 import { IngredientModel } from '../../models/ingredient-model';
+import { IngredientsListItemComponent } from '../../shared/components/ingredients-list-item-component/ingredients-list-item-component';
 
 
 @Component({
   selector: 'app-recipe-generator-page',
-  imports: [HeaderComponent, UnitComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, UnitComponent, ReactiveFormsModule, IngredientsListItemComponent],
   templateUrl: './recipe-generator-page.html',
   styleUrl: './recipe-generator-page.scss',
 })
@@ -36,11 +37,11 @@ export class RecipeGeneratorPage {
     unit: new FormControl('gram', { nonNullable: true })
   }, { validators: quantityValidator() });
 
-  ingredients: IngredientModel[] = [];
+  ingredients = signal<IngredientModel[]>([]);
 
   ingredientsSorted = computed(() => {
-    if (this.ingredients.length <= 1) { return this.ingredients; }
-    return this.ingredients.sort((a, b) => b.sort_order - a.sort_order);
+    if (this.ingredients().length <= 1) { return this.ingredients(); }
+    return [...this.ingredients()].sort((a, b) => b.sort_order - a.sort_order);
   });
 
   isSubmitted = signal<boolean>(false);
@@ -56,13 +57,13 @@ export class RecipeGeneratorPage {
   }
 
   onInputLeave(fieldName: string): void {
-    if (fieldName === 'name') { 
-      this.isWritingIngredient.set(false); 
+    if (fieldName === 'name') {
+      this.isWritingIngredient.set(false);
       this.trimFormValues(fieldName);
     }
 
     if (fieldName === 'unitCount') { this.isWritingServingSize.set(false); }
-    
+
   }
 
   trimFormValues(fieldName: string): void {
@@ -91,14 +92,12 @@ export class RecipeGeneratorPage {
       this.isSubmitted.set(true);
       this.addIngredientToList();
       this.resetIngredientForm();
-      console.log(this.ingredients);
-      
     }
   }
 
   addIngredientToList(): void {
-    const ingredient = new IngredientModel(this.ingredientForm.value, this.ingredients.length);
-    this.ingredients.push(ingredient);
+    const newIngredient = new IngredientModel(this.ingredientForm.value, this.ingredients().length);
+    this.ingredients.update(items => [...items, newIngredient]);
   }
 
   resetIngredientForm(): void {
