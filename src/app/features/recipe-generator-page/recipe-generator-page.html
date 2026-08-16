@@ -7,7 +7,7 @@
 
         <article class="generator-selection">
             <div class="generator-ingredient">
-                <form class="ingredient-form" [formGroup]="ingredientForm">
+                <form class="ingredient-form" [formGroup]="ingredientForm" (keydown.enter)="preventEnterSubmit($event)" (ngSubmit)="onSubmit()">
                     <div class="ingredient-input-area">
                         <label for="name">Ingredient</label>
                         <input 
@@ -16,6 +16,7 @@
                             type="text" 
                             id="name" 
                             name="name" 
+                            autocomplete="on"
                             [formControl]="ingredientForm.controls.name"
                             (focus)="onInputEnter('name')"
                             (blur)="onInputLeave('name')"
@@ -45,7 +46,7 @@
                             (sendUnitSelection)="onChooseUnit($event)"
                             class="unit-selector">{{currentUnit()}}
                         </app-unit-component>
-                        <button type="submit" class="add-button">
+                        <button type="submit" class="add-button" [class.add-button--disabled]="isSubmitted()">
                             <div class="add-button__icon"></div>
                         </button>
                         <span 

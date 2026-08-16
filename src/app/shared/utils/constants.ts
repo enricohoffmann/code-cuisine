@@ -3,9 +3,9 @@ import { UnitVariant } from "./types";
 export const UNIT_VARIANTS: UnitVariant[] = ['gram', 'piece', 'ml'];
 
 export const LIMITS = {
-  gram: { min: 1, max: 5000, integer: false },
-  ml: { min: 1, max: 5000, integer: false },
-  piece: { min: 1, max: 50, integer: true }
+  gram: { min: 1, max: 5000, step: 0.1 },
+  ml: { min: 1, max: 5000, step: 0.1 },
+  piece: { min: 1, max: 50, step: 0.25 }
 };
 
 export const VALIDATION_MESSAGES = {
@@ -16,5 +16,6 @@ export const VALIDATION_MESSAGES = {
     maxWordLength: (error: { maxLength: number }) => `Words may not contain more than ${error.maxLength} characters.`,
     isNotANumber: () => 'The input must be a number.',
     invalidSize: () => 'The input must be a number.',
-    outOfRange: (error: [UnitVariant, number, number]) => `For ${error[0]}, enter a value between ${error[1]} and ${error[2]}.`
+    outOfRange: (error: [UnitVariant, number, number]) => `For ${error[0]}, enter a value between ${error[1]} and ${error[2]}.`,
+    invalidStep: (error: { step: number }) => `Please enter the amount in steps of ${error.step}.`
 }

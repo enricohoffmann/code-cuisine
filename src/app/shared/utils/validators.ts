@@ -40,7 +40,7 @@ export function maxWordLengthValidator(maxLength: number): ValidatorFn {
 export function nanValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const value = control.value;
-        return Number.isNaN(value) && Number.isFinite(value) ? null : { isNotANumber: true };
+        return typeof value === 'number' && Number.isFinite(value) ? null : { isNotANumber: true };
     };
 }
 
@@ -48,25 +48,24 @@ export function quantityValidator(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
         const quantity = group.get('unitCount')?.value;
         const unit = group.get('unit')?.value as UnitVariant;
-        const currentLimit = LIMITS[unit];
+        const limit = LIMITS[unit];
 
-        if (quantity === null || quantity === undefined || quantity === '') { return { invalidSize: true }; }
-
-        if (!currentLimit) { return { invalidUnit: true }; }
-
-        if (typeof quantity !== 'number' || !Number.isFinite(quantity)) { return { invalidSize: true }; }
-
-        if (quantity < currentLimit.min || quantity > currentLimit.max) {
-            return {
-                outOfRange: [
-                    unit,
-                    currentLimit.min,
-                    currentLimit.max
-                ]
-            };
-        }
+        if (quantity === null || quantity === undefined || quantity === '') return { invalidSize: true };
+        if (!limit) return { invalidUnit: true };
+        if (typeof quantity !== 'number' || !Number.isFinite(quantity)) return { invalidSize: true };
+        if (!hasValidStep(quantity, limit.step)) return { invalidStep: { step: limit.step } };
+        if (!isInRange(quantity, limit.min, limit.max)) return { outOfRange: [unit, limit.min, limit.max] };
 
         return null;
     };
+}
+
+function hasValidStep(quantity: number, step: number): boolean {
+    const remainder = quantity / step;
+    return Math.abs(remainder - Math.round(remainder)) <= 0.000001;
+}
+
+function isInRange(quantity: number, min: number, max: number): boolean {
+    return quantity >= min && quantity <= max;
 }
 

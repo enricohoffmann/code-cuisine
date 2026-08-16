@@ -21,18 +21,20 @@ export class RecipeGeneratorPage {
   isWritingServingSize = signal<boolean>(false);
 
   ingredientForm = new FormGroup<IngredientForm>({
-    id: new FormControl(0, { nonNullable: true}),
-    name: new FormControl('', {nonNullable: true, validators : 
-      [
-        Validators.required, 
-        Validators.minLength(2), 
-        Validators.maxLength(50), 
-        noWhitespaceValidator(), 
-        maxWordLengthValidator(20)
-      ]}),
-    unitCount: new FormControl(100, {nonNullable: true, validators: [nanValidator()]}),
-    unit: new FormControl('gram', {nonNullable: true})
-  }, {validators: quantityValidator()});
+    id: new FormControl(0, { nonNullable: true }),
+    name: new FormControl('', {
+      nonNullable: true, validators:
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+          noWhitespaceValidator(),
+          maxWordLengthValidator(20)
+        ]
+    }),
+    unitCount: new FormControl(100, { nonNullable: true, validators: [nanValidator()] }),
+    unit: new FormControl('gram', { nonNullable: true })
+  }, { validators: quantityValidator() });
 
   ingredients: Ingredient[] = [];
 
@@ -41,35 +43,41 @@ export class RecipeGeneratorPage {
   });
 
   ingredientsSorted = computed(() => {
-    if(this.ingredients.length <= 1) {return this.ingredients;}
+    if (this.ingredients.length <= 1) { return this.ingredients; }
     return this.ingredients.sort((a, b) => b.sort_order - a.sort_order);
   });
 
+  isSubmitted = signal<boolean>(false);
+
   onChooseUnit(unit: UnitVariant): void {
-    this.currentUnit.set(unit);  
+    this.currentUnit.set(unit);
     this.ingredientForm.get('unit')?.setValue(unit);
   }
 
   onInputEnter(fieldName: string): void {
-    if(fieldName === 'name') {this.isWritingIngredient.set(true);}
-    if(fieldName === 'unitCount') {this.isWritingServingSize.set(true);}
+    if (fieldName === 'name') { this.isWritingIngredient.set(true); }
+    if (fieldName === 'unitCount') { this.isWritingServingSize.set(true); }
   }
 
   onInputLeave(fieldName: string): void {
-    if(fieldName === 'name') {this.isWritingIngredient.set(false);}
-    if(fieldName === 'unitCount') {this.isWritingServingSize.set(false);}
-    this.trimFormValues(fieldName);
+    if (fieldName === 'name') { 
+      this.isWritingIngredient.set(false); 
+      this.trimFormValues(fieldName);
+    }
+    
+    if (fieldName === 'unitCount') { this.isWritingServingSize.set(false); }
+    
   }
 
-  trimFormValues(fieldName: string) : void {
+  trimFormValues(fieldName: string): void {
     const formControl = this.ingredientForm.get(fieldName);
-    if(formControl){
+    if (formControl) {
       formControl.setValue(formControl.value!.trim());
     }
   }
 
   getErrorMessage(control: AbstractControl | null): string | null {
-    if(control == null) {return null;}
+    if (control == null) { return null; }
     if (!control.errors) { return null; }
     if (control.untouched && control.invalid) { return null; }
 
@@ -78,6 +86,35 @@ export class RecipeGeneratorPage {
     if (!errorMessageFactory) { return 'Unknown validation error.'; }
 
     return errorMessageFactory(control.errors[firstErrorKey]);
+  }
+
+  onSubmit(): void {
+    this.ingredientForm.markAllAsTouched();
+    console.log('Valid', this.ingredientForm.valid);
+    console.log(this.ingredientForm);
+
+    Object.entries(this.ingredientForm.controls).forEach(([key, control]) => {
+      console.log(key, control.valid, control.errors);
+    });
+
+    if (this.ingredientForm.valid) {
+      this.trimFormValues('name');
+      /* this.trimFormValues('unitCount'); */
+      this.isSubmitted.set(true);
+      console.log(this.ingredientForm.value);
+
+    }
+  }
+
+  preventEnterSubmit(event: Event): void {
+    const keyboardEvent = event as KeyboardEvent;
+    const target = keyboardEvent.target;
+
+    if (target instanceof HTMLTextAreaElement) { return; }
+
+    if (target instanceof HTMLInputElement) {
+      keyboardEvent.preventDefault();
+    }
   }
 
 }

@@ -55,7 +55,7 @@
     border-radius: 20px;
     padding: 25px;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, auto));
+    grid-template-columns: 300px 1fr;
     height: 176px;
     align-content: flex-start;
     column-gap: 24px;
@@ -73,7 +73,7 @@
 
     &__input {
         box-sizing: border-box;
-        min-width: 300px;
+        width: 100%;
         outline: none;
         border: none;
         background-color: rgba(250, 240, 230, 0.8);
@@ -81,6 +81,14 @@
         font-size: 20px;
         padding: 6px 18px;
         color: rgba(16, 49, 11, 0.6);
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            -webkit-text-fill-color: rgba(16, 49, 11, 0.6);
+            -webkit-box-shadow: 0 0 0 1000px rgba(250, 240, 230, 0.8) inset;
+            border-radius: 20px;
+        }
     }
 }
 
@@ -90,11 +98,11 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, auto));
-    grid-template-areas: 
-        "label label label" 
+    grid-template-areas:
+        "label label label"
         "size-input units-selector add-button"
         "error error error"
-        ;
+    ;
     column-gap: 12px;
     row-gap: 10px;
     justify-content: space-between;
@@ -144,21 +152,29 @@
 
     &__icon {
         width: 24px;
-        aspect-ratio: 1 / 1;   
+        aspect-ratio: 1 / 1;
         @include mixins.setup-image('/assets/icons/add.svg');
     }
 
-    &:hover {
+    &:hover:not(.add-button--disabled) {
         background-color: rgba(250, 240, 230, 0.8);
     }
+
+    &--disabled {
+        cursor: not-allowed;
+    }
+
 }
 
+.add-button--disabled .add-button__icon {
+    filter: opacity(0.6);
+}
 
 .ingredient-list {
     background-color: rgba(57, 96, 57, 0.3);
     border-radius: 20px;
     padding: 25px;
-    
+
 }
 
 .error-text {
@@ -168,7 +184,7 @@
     font-weight: 600;
     opacity: 0;
     transition: opacity 125ms ease-in;
-    max-width: 300px;
+    width: 100%;
 
     &--quantity {
         grid-area: error;
