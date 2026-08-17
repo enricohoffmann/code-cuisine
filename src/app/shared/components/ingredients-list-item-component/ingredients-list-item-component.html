@@ -1,11 +1,24 @@
-<form class="ingredient-item">
+<form 
+    class="ingredient-item" 
+    [class.ingredient-item--writing]="isEditMode()" 
+    (ngSubmit)="onSaveClick()" 
+    [formGroup]="ingredientForm">
 
     <!-- dot -> immer gleich -->
     <div class="dot"></div>
 
     <!-- Anzahl bei readonly mit Einheit sonst ohne -->
     @if(isEditMode()) {
-        <input class="quantity-edit" type="text">
+        <input 
+            type="number" 
+            [min]="0" 
+            class="quantity-edit" 
+            [class.input-writing]="isWriting()"
+            type="text" 
+            [formControl]="ingredientForm.controls.unitCount"
+            (focus)="onInputEnter()"
+            (blur)="onInputLeave()"
+            >
     }@else {
         <span class="quantity-read">{{unitCountWithUnit}}</span>
     }
@@ -13,9 +26,11 @@
     <!-- Einheit nur bei Editmode -->
     @if(isEditMode()) {
         <app-unit-component
-            [isUnitsListOpen]="false"
+            [isUnitsListOpen]="isUnitListOpen()"
             [isUnitSelected]="false"
-        ></app-unit-component>
+            (isOpenChange)="isUnitListOpen.set($event)"
+            (sendUnitSelection)="onChooseUnit($event)"
+        >{{currentUnit()}}</app-unit-component>
     }
 
     <!-- Name -->
@@ -40,7 +55,8 @@
 
     <!-- Errortext -->
     @if(isEditMode()){
-        <span>error</span>
+        <span class="error-text" 
+            [class.error-text--show]="getErrorMessage(ingredientForm) !== null && !isUnitListOpen()">{{getErrorMessage(ingredientForm)}}</span>
     }
 
 </form>

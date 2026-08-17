@@ -66,6 +66,7 @@
                             [ingredient]="ingredient"
                             [ingredientIndex]="$index"
                             (startEditMode)="ingredientWantsToEdit($event)"
+                            (endEditMode)="ingredientEndsEdit($event)"
                         ></app-ingredients-list-item-component>
                     }
 

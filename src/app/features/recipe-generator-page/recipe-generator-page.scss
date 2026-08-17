@@ -116,6 +116,8 @@
     }
 
     &__input {
+        height: 35px;
+        box-sizing: border-box;
         grid-area: size-input;
         outline: none;
         border: none;

@@ -5,20 +5,23 @@
     box-sizing: border-box;
     display: grid;
     grid-template-areas: "dot unit-count ingredient edit-button delete-button";
-    grid-template-columns: 8px 65px 1fr 22px 22px;
+    grid-template-columns: auto 65px 1fr 22px 22px;
     align-self: center;
     column-gap: 12px;
     @include mixins.setup-font('Quicksand', 18px, 500, rgba(0, 0, 0, 1));
-    margin-bottom: 16px;
-    padding: 6px 8px;
+    margin-bottom: 4px;
+    padding: 1px 8px;
     border-radius: 8px;
     transition: background-color 125ms ease-in;
 
     &--writing {
-
+        grid-template-areas: 
+            "dot size-input unit ingredient check-button delete-button";
+        grid-template-columns: auto 90px 80px 1fr 22px 22px;
+        row-gap: 8px;
     }
 
-    &:hover:not(.ingredient-item--writing){
+    &:hover:not(.ingredient-item--writing) {
         background-color: rgba(250, 240, 230, 1);
     }
 }
@@ -27,16 +30,33 @@
 .dot {
     grid-area: dot;
     @include mixins.setup-display-flex(column, center, center);
-    width: 6px;
-    aspect-ratio: 1 / 1;
+    width: 15px;
+    height: 35px;
     background-color: rgba(0, 0, 0, 1);
-    border-radius: 9999px;
-    align-self: center;
+    clip-path: circle(3px);
 }
 
 .quantity-read {
     grid-area: unit-count;
     align-content: center;
+}
+
+.quantity-edit {
+    box-sizing: border-box;
+    grid-area: size-input;
+    outline: none;
+    border: none;
+    background-color: rgba(250, 240, 230, 0.8);
+    border-radius: 20px;
+    font-size: 18px;
+    padding: 6px 18px;
+    text-align: center;
+    color: rgba(16, 49, 11, 0.6);
+    height: 35px;
+}
+
+.input-writing {
+    color: rgba(16, 49, 11, 1);
 }
 
 .ingredient-name {
@@ -49,7 +69,7 @@
     border: none;
     outline: none;
     width: 22px;
-    aspect-ratio: 1 / 1;
+    height: 35px;
     @include mixins.setup-display-flex(row, center, center);
     border-radius: 4px;
     background-color: transparent;
@@ -71,4 +91,18 @@
         background-color: rgba(57, 96, 57, 0.3);
     }
 
+}
+
+.error-text {
+    box-sizing: border-box;
+    min-height: 18px;
+    color: rgb(209, 99, 79);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 125ms ease-in;
+    width: 100%;
+
+    &--show {
+        opacity: 1;
+    }
 }

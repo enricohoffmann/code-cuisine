@@ -8,12 +8,13 @@
 }
 
 .unit-selector-button {
+    height: 35px;
+    box-sizing: border-box;
     border: none;
     outline: none;
     cursor: pointer;
     width: 100%;
     min-width: 85px;
-    height: 100%;
     @include mixins.setup-display-flex(row, center, center, 6px);
     padding: 5px 10px;
     border-radius: 48px;
@@ -53,11 +54,12 @@
 }
 
 .units-list {
+    margin-top: 3px;
     box-sizing: border-box;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
-    top: 36px;
-    left: 0;
+   /*  top: calc(100% + 3px); */
+    /* left: 0; */
     background-color: transparent;
     @include mixins.setup-display-flex(column, center, flex-start, 6px);
     max-height: 0;
@@ -84,5 +86,6 @@
 .units-list-open {
     max-height: 300px;
     opacity: 1;
+    overflow: visible;
     pointer-events: auto;
 }

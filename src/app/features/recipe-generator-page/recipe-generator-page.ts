@@ -145,17 +145,30 @@ export class RecipeGeneratorPage {
     if (this.currentIngredientInEdit() == null || this.currentIngredientInEdit() === index) {
       const selectedIngredient = this.ingredientsSorted().at(index);
       if (!selectedIngredient) { return; }
-      this.setIngredientInEditMode(selectedIngredient);
+      this.toggleIngredientEditMode(selectedIngredient, true);
       this.currentIngredientInEdit.set(index);
+    } else {
+      this.showPopupDialog();
     }
   }
 
-  setIngredientInEditMode(selectedIngredient: IngredientModel): void {
-    this.ingredients.update(items => 
-      items.map(item => 
-        item.id === selectedIngredient.id ? {...item, editMode: true } : item
+  ingredientEndsEdit(index: number): void {
+    const selectedIngredient = this.ingredientsSorted().at(index);
+    if (!selectedIngredient) { return; }
+    this.toggleIngredientEditMode(selectedIngredient, false);
+    this.currentIngredientInEdit.set(null);
+  }
+
+  toggleIngredientEditMode(selectedIngredient: IngredientModel, editMode: boolean): void {
+    this.ingredients.update(items =>
+      items.map(item =>
+        item.id === selectedIngredient.id ? { ...item, editMode: editMode } : item
       )
     );
+  }
+
+  showPopupDialog(): void {
+    console.log("Bitte erst die Bearbeitung abschliessen.")
   }
 
 }
