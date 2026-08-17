@@ -21,6 +21,7 @@ export class RecipeGeneratorPage {
   currentUnit = signal<UnitVariant>('gram');
   isWritingIngredient = signal<boolean>(false);
   isWritingServingSize = signal<boolean>(false);
+  currentIngredientInEdit = signal<number | null>(null);
 
   ingredientForm = new FormGroup<IngredientForm>({
     name: new FormControl('', {
@@ -138,6 +139,23 @@ export class RecipeGeneratorPage {
     if (target instanceof HTMLInputElement) {
       keyboardEvent.preventDefault();
     }
+  }
+
+  ingredientWantsToEdit(index: number): void {
+    if (this.currentIngredientInEdit() == null || this.currentIngredientInEdit() === index) {
+      const selectedIngredient = this.ingredientsSorted().at(index);
+      if (!selectedIngredient) { return; }
+      this.setIngredientInEditMode(selectedIngredient);
+      this.currentIngredientInEdit.set(index);
+    }
+  }
+
+  setIngredientInEditMode(selectedIngredient: IngredientModel): void {
+    this.ingredients.update(items => 
+      items.map(item => 
+        item.id === selectedIngredient.id ? {...item, editMode: true } : item
+      )
+    );
   }
 
 }

@@ -61,10 +61,11 @@
                 <section class="ingredient-list">
                     <p>List of your Ingredients</p>
 
-                    @for(ingredient of ingredientsSorted(); track ingredient) {
+                    @for(ingredient of ingredientsSorted(); track ingredient.id) {
                         <app-ingredients-list-item-component
                             [ingredient]="ingredient"
                             [ingredientIndex]="$index"
+                            (startEditMode)="ingredientWantsToEdit($event)"
                         ></app-ingredients-list-item-component>
                     }
 

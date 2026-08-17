@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal, output, computed } from '@angular/core';
 import { IngredientModel } from '../../../models/ingredient-model';
 import { UnitComponent } from '../unit-component/unit-component';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -14,7 +14,14 @@ import { nanValidator, quantityValidator } from '../../utils/validators';
 export class IngredientsListItemComponent implements OnInit {
   ingredient = input.required<IngredientModel>();
   ingredientIndex = input.required<number>();
-  isEditMode = signal<boolean>(false);
+
+  isEditMode = computed(() => {
+    console.log(this.ingredient());
+    
+    return this.ingredient().editMode;
+  });
+
+  startEditMode = output<number>();
 
   private readonly UNIT_STRINGS: Record<UnitVariant, string> = {
     gram: 'g',
@@ -28,6 +35,7 @@ export class IngredientsListItemComponent implements OnInit {
     unit: new FormControl('gram', { nonNullable: true })
   }, {validators: quantityValidator()});
 
+
   ngOnInit(): void {
     this.ingredientForm.controls.name.setValue(this.ingredient().name);
     this.ingredientForm.controls.unit.setValue(this.ingredient().unit);
@@ -40,6 +48,10 @@ export class IngredientsListItemComponent implements OnInit {
 
   get unitCountWithUnit(): string {
     return `${this.ingredientForm.controls.unitCount.value}${this.UNIT_STRINGS[this.ingredientForm.controls.unit.value]}`;
+  }
+
+  onEditClick(): void {
+    this.startEditMode.emit(this.ingredientIndex());
   }
 
 }
