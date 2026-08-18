@@ -3,11 +3,12 @@ import { HeaderComponent } from "../../layout/header/header-component/header-com
 import { Router } from '@angular/router';
 import { GenerateStep1Component } from '../../shared/components/generate-step-1-component/generate-step-1-component';
 import { GenerateStep2Component } from '../../shared/components/generate-step-2-component/generate-step-2-component';
+import { CallToAction } from '../../shared/components/call-to-action/call-to-action';
 
 
 @Component({
   selector: 'app-recipe-generator-page',
-  imports: [HeaderComponent, GenerateStep1Component, GenerateStep2Component],
+  imports: [HeaderComponent, GenerateStep1Component, GenerateStep2Component, CallToAction],
   templateUrl: './recipe-generator-page.html',
   styleUrl: './recipe-generator-page.scss',
 })

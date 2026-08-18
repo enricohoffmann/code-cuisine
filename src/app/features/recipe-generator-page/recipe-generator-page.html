@@ -1,22 +1,19 @@
 <div class="white-wrapper">
     <section class="generator-section">
-        <app-header-component 
-            [headerVariant]="'colored'"
-            (headerIconEvent)="goToHome()"
-            [isClickable]="true"
-            ></app-header-component>
+        <app-header-component [headerVariant]="'colored'" (headerIconEvent)="goToHome()"
+            [isClickable]="true"></app-header-component>
 
         @if(currentStep() === 'stepOne'){
-            <app-generate-step-1-component
-                (nextStepEvent)="goToStepTwo()"    
-            ></app-generate-step-1-component>
+            <app-generate-step-1-component (nextStepEvent)="goToStepTwo()"></app-generate-step-1-component>
         }
 
         @if(currentStep() === 'stepTwo') {
-            <app-generate-step-2-component>
-                
-            </app-generate-step-2-component>
+
+            <app-call-to-action [callToActionVariant]="'backward'" [colorVariant]="'colored'"
+                (actionButtonEvent)="goToStepOne()">Ingredients</app-call-to-action>
+
+            <app-generate-step-2-component></app-generate-step-2-component>
         }
-       
+
     </section>
 </div>
