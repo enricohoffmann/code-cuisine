@@ -9,11 +9,12 @@ import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
 import { IngredientModel } from '../../models/ingredient-model';
 import { IngredientsListItemComponent } from '../../shared/components/ingredients-list-item-component/ingredients-list-item-component';
 import { DialogOverlayService } from '../../services/dialog-overlay-service';
+import { ButtonComponent } from "../../shared/components/button-component/button-component";
 
 
 @Component({
   selector: 'app-recipe-generator-page',
-  imports: [HeaderComponent, UnitComponent, ReactiveFormsModule, IngredientsListItemComponent],
+  imports: [HeaderComponent, UnitComponent, ReactiveFormsModule, IngredientsListItemComponent, ButtonComponent],
   templateUrl: './recipe-generator-page.html',
   styleUrl: './recipe-generator-page.scss',
 })

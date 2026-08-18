@@ -72,9 +72,11 @@
                     }
 
                 </section>
+
+                <app-button-component [buttonVariant]="'dark'" class="next-button" [class.next-button--show]="ingredients().length > 0" >Next step</app-button-component>
+
             </div>
         </article>
-
-
+       
     </section>
 </div>
