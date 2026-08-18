@@ -4,19 +4,24 @@
 .ingredient-item {
     box-sizing: border-box;
     display: grid;
-    grid-template-areas: "dot unit-count ingredient edit-button delete-button";
+    grid-template-areas:
+        "dot unit-count ingredient edit-button delete-button"
+        "error-text error-text error-text error-text error-text"
+    ;
     grid-template-columns: auto 65px 1fr auto auto;
     align-self: center;
     column-gap: 12px;
-    @include mixins.setup-font('Quicksand', 18px, 500, rgba(0, 0, 0, 1));
+    @include mixins.setup-font('Quicksand', clamp(1.00rem, calc(0.964rem + 0.179vw), 1.13rem), 500, rgba(0, 0, 0, 1));
     margin-bottom: 4px;
     padding: 4px 8px;
     border-radius: 10px;
     transition: background-color 125ms ease-in;
 
     &--writing {
-        grid-template-areas: 
-            "dot size-input unit ingredient check-button delete-button";
+        grid-template-areas:
+            "dot size-input unit ingredient check-button delete-button"
+            "error-text error-text error-text error-text error-text error-text"
+        ;
         grid-template-columns: auto 90px 80px 1fr auto auto;
         row-gap: 8px;
     }
@@ -48,7 +53,7 @@
     border: none;
     background-color: rgba(250, 240, 230, 0.8);
     border-radius: 20px;
-    font-size: 18px;
+    font-size: clamp(1.00rem, calc(0.964rem + 0.179vw), 1.13rem);
     padding: 6px 18px;
     text-align: center;
     color: rgba(16, 49, 11, 0.6);
@@ -64,7 +69,13 @@
     align-content: center;
 }
 
+.unit-selector {
+    grid-area: unit;
+    max-width: 85px;
+}
+
 .form-button {
+    display: block;
     cursor: pointer;
     border: none;
     outline: none;
@@ -100,8 +111,9 @@
 }
 
 .error-text {
+    grid-area: error-text;
     box-sizing: border-box;
-    min-height: 18px;
+    min-height: clamp(1.00rem, calc(0.964rem + 0.179vw), 1.13rem);
     color: rgb(209, 99, 79);
     font-weight: 600;
     opacity: 0;
@@ -110,5 +122,41 @@
 
     &--show {
         opacity: 1;
+    }
+}
+
+@media(max-width: 630px) {
+    .ingredient-item--writing {
+        grid-template-areas:
+            "dot size-input unit check-button delete-button"
+            "ingredient ingredient ingredient ingredient ingredient"
+            "error-text error-text error-text error-text error-text"
+        ;
+        grid-template-columns: auto 90px 1fr auto auto;
+        column-gap: 6px;
+    }
+}
+
+@media (max-width: 460px) {
+    .ingredient-item:not(.ingredient-item--writing) {
+        grid-template-columns: auto auto 1fr auto;
+        grid-template-areas:
+            "dot unit-count edit-button delete-button"
+            "ingredient ingredient ingredient ingredient"
+        ;
+        
+    }
+
+    .form-button {
+        justify-self: end;
+        width: 28px;
+    }
+
+    .dot {
+        width: 8px;
+    }
+
+    .quantity-edit {
+        padding: 5px 10px;
     }
 }

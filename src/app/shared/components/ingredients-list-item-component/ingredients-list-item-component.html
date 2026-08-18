@@ -26,6 +26,7 @@
     <!-- Einheit nur bei Editmode -->
     @if(isEditMode()) {
         <app-unit-component
+            class="unit-selector"
             [isUnitsListOpen]="isUnitListOpen()"
             [isUnitSelected]="false"
             (isOpenChange)="isUnitListOpen.set($event)"
