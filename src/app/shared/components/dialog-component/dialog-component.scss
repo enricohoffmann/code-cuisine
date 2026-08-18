@@ -1,0 +1,82 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+:host {
+  display: block;
+  animation: dialogMoveIn 400ms linear;
+}
+
+.dialog-closing {
+  animation: dialogMoveOut 400ms linear forwards;
+}
+
+.dialog-section {
+    background-color: rgba(57, 96, 57, 1);
+    border-radius: 30px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 50px;
+    display: grid;
+    grid-template-areas: "cancel" "title" "message";
+    grid-template-rows: auto auto 1fr;
+    row-gap: 16px;
+}
+
+.dialog-close-button {
+    grid-area: cancel;
+    justify-self: end;
+    border: none;
+    outline: none;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    background-color: transparent;
+    @include mixins.setup-display-flex(column, center, center);
+    transition: background-color 125ms ease-in;
+
+    &:hover {
+        background-color: rgba(250, 240, 230, 0.2);
+    }
+
+    & > div {
+        width: 24px;
+        aspect-ratio: 1 / 1;
+        @include mixins.setup-image('/assets/icons/close.svg');
+    }
+}
+
+h3 {
+    @include mixins.setup-font('Quicksand', 28px, 600, rgba(250, 240, 230, 1));
+    line-height: 28px;
+}
+
+.dialog-message {
+    box-sizing: border-box;
+    width: 100%;
+    @include mixins.setup-font('Quicksand', 16px, 500, rgba(250, 240, 230, 1));
+    line-height: 26px;
+}
+
+@keyframes dialogMoveIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes dialogMoveOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}

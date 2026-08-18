@@ -5,19 +5,19 @@
     box-sizing: border-box;
     display: grid;
     grid-template-areas: "dot unit-count ingredient edit-button delete-button";
-    grid-template-columns: auto 65px 1fr 22px 22px;
+    grid-template-columns: auto 65px 1fr auto auto;
     align-self: center;
     column-gap: 12px;
     @include mixins.setup-font('Quicksand', 18px, 500, rgba(0, 0, 0, 1));
     margin-bottom: 4px;
-    padding: 1px 8px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 10px;
     transition: background-color 125ms ease-in;
 
     &--writing {
         grid-template-areas: 
             "dot size-input unit ingredient check-button delete-button";
-        grid-template-columns: auto 90px 80px 1fr 22px 22px;
+        grid-template-columns: auto 90px 80px 1fr auto auto;
         row-gap: 8px;
     }
 
@@ -68,7 +68,7 @@
     cursor: pointer;
     border: none;
     outline: none;
-    width: 22px;
+    width: 35px;
     height: 35px;
     @include mixins.setup-display-flex(row, center, center);
     border-radius: 4px;
@@ -85,6 +85,12 @@
         width: 19px;
         aspect-ratio: 1 / 1;
         @include mixins.setup-image('/assets/icons/delete.svg');
+    }
+
+    &__save {
+        width: 19px;
+        aspect-ratio: 1 / 1;
+        @include mixins.setup-image('/assets/icons/save.svg');
     }
 
     &:hover:not(.ingredient-item--writing) {

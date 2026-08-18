@@ -16,6 +16,8 @@ export class IngredientsListItemComponent implements OnInit {
   ingredient = input.required<IngredientModel>();
   ingredientIndex = input.required<number>();
   isUnitListOpen = signal<boolean>(false);
+  currentUnit = signal<UnitVariant>('gram');
+  isWriting = signal<boolean>(false);
 
   isEditMode = computed(() => {
     return this.ingredient().editMode;
@@ -23,8 +25,7 @@ export class IngredientsListItemComponent implements OnInit {
 
   startEditMode = output<number>();
   endEditMode = output<number>();
-  currentUnit = signal<UnitVariant>('gram');
-  isWriting = signal<boolean>(false);
+  deleteEvent = output<number>();
 
   private readonly UNIT_STRINGS: Record<UnitVariant, string> = {
     gram: 'g',
@@ -64,6 +65,10 @@ export class IngredientsListItemComponent implements OnInit {
       this.endEditMode.emit(this.ingredientIndex());
       this.isUnitListOpen.set(false);
     }
+  }
+
+  onDeleteClick(): void {
+    this.deleteEvent.emit(this.ingredientIndex());
   }
 
   onInputEnter(): void {

@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header-component/header-component";
 import { UnitComponent } from '../../shared/components/unit-component/unit-component';
 import { IngredientForm, UnitVariant } from '../../shared/utils/types';
@@ -8,6 +8,7 @@ import { maxWordLengthValidator, nanValidator, noWhitespaceValidator, quantityVa
 import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
 import { IngredientModel } from '../../models/ingredient-model';
 import { IngredientsListItemComponent } from '../../shared/components/ingredients-list-item-component/ingredients-list-item-component';
+import { DialogOverlayService } from '../../services/dialog-overlay-service';
 
 
 @Component({
@@ -46,6 +47,8 @@ export class RecipeGeneratorPage {
   });
 
   isSubmitted = signal<boolean>(false);
+
+  private readonly dialogOverlayService = inject(DialogOverlayService);
 
   onChooseUnit(unit: UnitVariant): void {
     this.currentUnit.set(unit);
@@ -167,8 +170,21 @@ export class RecipeGeneratorPage {
     );
   }
 
+  removeOneIngredient(index: number): void {
+    const selectedIngredient = this.ingredientsSorted().at(index);
+    if (!selectedIngredient) { return; }
+    this.ingredients.update(items => items.filter(item => item.id !== selectedIngredient.id));
+  }
+
   showPopupDialog(): void {
-    console.log("Bitte erst die Bearbeitung abschliessen.")
+    this.dialogOverlayService.openNoticeDialog(
+      "That won't work like that.",
+      "Only one ingredient can be processed at a time. Please complete the current operation first."
+    ).subscribe(() => this.hidePopupDialog());
+  }
+
+  hidePopupDialog(): void {
+    this.dialogOverlayService.close();
   }
 
 }
