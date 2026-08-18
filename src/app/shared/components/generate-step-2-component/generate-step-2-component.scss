@@ -1,0 +1,9 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+h3 {
+    font-size: clamp(1.50rem, calc(1.429rem + 0.357vw), 1.75rem);
+    line-height: 65px;
+    margin-top: 64px;
+    text-align: center;
+}

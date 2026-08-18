@@ -1,0 +1,53 @@
+<h1>Generate recipe</h1>
+<p class="generator-description">Got random stuff in your kitchen? Pop it in—we’ve got the perfect recipe waiting.</p>
+
+<article class="generator-selection">
+    <div class="generator-ingredient">
+        <form class="ingredient-form" [formGroup]="ingredientForm" (keydown.enter)="preventEnterSubmit($event)"
+            (ngSubmit)="onSubmit()">
+            <div class="ingredient-input-area">
+                <label for="name">Ingredient</label>
+                <input class="ingredient-input-area__input" [class.input-writing]="isWritingIngredient()" type="text"
+                    id="name" name="name" autocomplete="on" [formControl]="ingredientForm.controls.name"
+                    (focus)="onInputEnter('name')" (blur)="onInputLeave('name')">
+                <span class="error-text"
+                    [class.error-text--show]="getErrorMessage(ingredientForm.controls.name) !== null">{{getErrorMessage(ingredientForm.controls.name)}}</span>
+            </div>
+            <div class="ingredient-size-area">
+                <label for="unitCount">Serving size</label>
+                <input type="number" id="unitCount" name="unitCount" [min]="0"
+                    [formControl]="ingredientForm.controls.unitCount" (focus)="onInputEnter('unitCount')"
+                    (blur)="onInputLeave('unitCount')" class="ingredient-size-area__input"
+                    [class.input-writing]="isWritingServingSize()">
+                <app-unit-component [isUnitSelected]="false" [isUnitsListOpen]="isUnitListOpen()"
+                    (isOpenChange)="isUnitListOpen.set($event)" (sendUnitSelection)="onChooseUnit($event)"
+                    class="unit-selector">{{currentUnit()}}
+                </app-unit-component>
+                <button type="submit" class="add-button" [class.add-button--disabled]="isSubmitted()">
+                    <div class="add-button__icon"></div>
+                </button>
+                <span class="error-text error-text--quantity"
+                    [class.error-text--show]="getErrorMessage(ingredientForm) !== null && !isUnitListOpen()">{{getErrorMessage(ingredientForm)}}</span>
+            </div>
+        </form>
+    </div>
+
+    <div class="generator-ingredient-list">
+        <section class="ingredient-list">
+            <p>List of your Ingredients</p>
+
+            @for(ingredient of ingredientService.ingredientsSorted(); track ingredient.id) {
+            <app-ingredients-list-item-component [ingredient]="ingredient" [ingredientIndex]="$index"
+                (startEditMode)="ingredientWantsToEdit($event)" (endEditMode)="ingredientEndsEdit($event)"
+                (deleteEvent)="ingredientService.removeOneIngredient($event)"></app-ingredients-list-item-component>
+            }
+
+        </section>
+
+        <app-button-component [buttonVariant]="'dark'" class="next-button"
+            [class.next-button--show]="ingredientService.ingredients().length > 0"
+            (click)="onNextStep()"
+            >Next step</app-button-component>
+
+    </div>
+</article>

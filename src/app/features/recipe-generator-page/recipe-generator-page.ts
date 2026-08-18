@@ -1,198 +1,31 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header-component/header-component";
-import { UnitComponent } from '../../shared/components/unit-component/unit-component';
-import { IngredientForm, UnitVariant } from '../../shared/utils/types';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Ingredient } from '../../interfaces/ingredient-interface';
-import { maxWordLengthValidator, nanValidator, noWhitespaceValidator, quantityValidator } from '../../shared/utils/validators';
-import { VALIDATION_MESSAGES } from '../../shared/utils/constants';
-import { IngredientModel } from '../../models/ingredient-model';
-import { IngredientsListItemComponent } from '../../shared/components/ingredients-list-item-component/ingredients-list-item-component';
-import { DialogOverlayService } from '../../services/dialog-overlay-service';
-import { ButtonComponent } from "../../shared/components/button-component/button-component";
 import { Router } from '@angular/router';
+import { GenerateStep1Component } from '../../shared/components/generate-step-1-component/generate-step-1-component';
+import { GenerateStep2Component } from '../../shared/components/generate-step-2-component/generate-step-2-component';
 
 
 @Component({
   selector: 'app-recipe-generator-page',
-  imports: [HeaderComponent, UnitComponent, ReactiveFormsModule, IngredientsListItemComponent, ButtonComponent],
+  imports: [HeaderComponent, GenerateStep1Component, GenerateStep2Component],
   templateUrl: './recipe-generator-page.html',
   styleUrl: './recipe-generator-page.scss',
 })
 export class RecipeGeneratorPage {
-  isUnitListOpen = signal<boolean>(false);
-  currentUnit = signal<UnitVariant>('gram');
-  isWritingIngredient = signal<boolean>(false);
-  isWritingServingSize = signal<boolean>(false);
-  currentIngredientInEdit = signal<number | null>(null);
-
-  ingredientForm = new FormGroup<IngredientForm>({
-    name: new FormControl('', {
-      nonNullable: true, validators:
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-          noWhitespaceValidator(),
-          maxWordLengthValidator(20)
-        ]
-    }),
-    unitCount: new FormControl(100, { nonNullable: true, validators: [nanValidator()] }),
-    unit: new FormControl('gram', { nonNullable: true })
-  }, { validators: quantityValidator() });
-
-  ingredients = signal<IngredientModel[]>([]);
-
-  ingredientsSorted = computed(() => {
-    if (this.ingredients().length <= 1) { return this.ingredients(); }
-    return [...this.ingredients()].sort((a, b) => b.sort_order - a.sort_order);
-  });
-
-  isSubmitted = signal<boolean>(false);
-
-  private readonly dialogOverlayService = inject(DialogOverlayService);
-
   private readonly router = inject(Router);
-
-  onChooseUnit(unit: UnitVariant): void {
-    this.currentUnit.set(unit);
-    this.ingredientForm.get('unit')?.setValue(unit);
-  }
-
-  onInputEnter(fieldName: string): void {
-    if (fieldName === 'name') { this.isWritingIngredient.set(true); }
-    if (fieldName === 'unitCount') { this.isWritingServingSize.set(true); }
-  }
-
-  onInputLeave(fieldName: string): void {
-    if (fieldName === 'name') {
-      this.isWritingIngredient.set(false);
-      this.trimFormValues(fieldName);
-    }
-
-    if (fieldName === 'unitCount') { this.isWritingServingSize.set(false); }
-
-  }
-
-  trimFormValues(fieldName: string): void {
-    const formControl = this.ingredientForm.get(fieldName);
-    if (formControl) {
-      formControl.setValue(formControl.value!.trim());
-    }
-  }
-
-  getErrorMessage(control: AbstractControl | null): string | null {
-    if (control == null) { return null; }
-    if (!control.errors) { return null; }
-    if (control.untouched && control.invalid) { return null; }
-
-    const firstErrorKey = Object.keys(control.errors)[0];
-    const errorMessageFactory = VALIDATION_MESSAGES[firstErrorKey as keyof typeof VALIDATION_MESSAGES];
-    if (!errorMessageFactory) { return 'Unknown validation error.'; }
-
-    return errorMessageFactory(control.errors[firstErrorKey]);
-  }
-
-  onSubmit(): void {
-    this.ingredientForm.markAllAsTouched();
-    if (this.ingredientForm.valid) {
-      this.trimFormValues('name');
-      this.isSubmitted.set(true);
-      this.addIngredientToList();
-      this.resetIngredientForm();
-    }
-  }
-
-  addIngredientToList(): void {
-    const newIngredient = new IngredientModel(this.ingredientForm.value, this.ingredients().length);
-    this.ingredients.update(items => [...items, newIngredient]);
-  }
-
-  resetIngredientForm(): void {
-    this.resetIngredientNameControl();
-    this.resetUnitCountControl();
-    this.resetUnitControl();
-    this.isSubmitted.set(false);
-  }
-
-  resetIngredientNameControl(): void {
-    const control = this.ingredientForm.controls.name;
-    control.setValue('');
-    control.markAsUntouched();
-    control.markAsPristine();
-  }
-
-  resetUnitCountControl(): void {
-    const control = this.ingredientForm.controls.unitCount;
-    control.setValue(100);
-    control.markAsUntouched();
-    control.markAsPristine();
-  }
-
-  resetUnitControl(): void {
-    const control = this.ingredientForm.controls.unit;
-    this.currentUnit.set('gram');
-    control.setValue('gram');
-    control.markAsUntouched();
-    control.markAsPristine();
-  }
-
-  preventEnterSubmit(event: Event): void {
-    const keyboardEvent = event as KeyboardEvent;
-    const target = keyboardEvent.target;
-
-    if (target instanceof HTMLTextAreaElement) { return; }
-
-    if (target instanceof HTMLInputElement) {
-      keyboardEvent.preventDefault();
-    }
-  }
-
-  ingredientWantsToEdit(index: number): void {
-    if (this.currentIngredientInEdit() == null || this.currentIngredientInEdit() === index) {
-      const selectedIngredient = this.ingredientsSorted().at(index);
-      if (!selectedIngredient) { return; }
-      this.toggleIngredientEditMode(selectedIngredient, true);
-      this.currentIngredientInEdit.set(index);
-    } else {
-      this.showPopupDialog();
-    }
-  }
-
-  ingredientEndsEdit(index: number): void {
-    const selectedIngredient = this.ingredientsSorted().at(index);
-    if (!selectedIngredient) { return; }
-    this.toggleIngredientEditMode(selectedIngredient, false);
-    this.currentIngredientInEdit.set(null);
-  }
-
-  toggleIngredientEditMode(selectedIngredient: IngredientModel, editMode: boolean): void {
-    this.ingredients.update(items =>
-      items.map(item =>
-        item.id === selectedIngredient.id ? { ...item, editMode: editMode } : item
-      )
-    );
-  }
-
-  removeOneIngredient(index: number): void {
-    const selectedIngredient = this.ingredientsSorted().at(index);
-    if (!selectedIngredient) { return; }
-    this.ingredients.update(items => items.filter(item => item.id !== selectedIngredient.id));
-  }
-
-  showPopupDialog(): void {
-    this.dialogOverlayService.openNoticeDialog(
-      "That won't work like that.",
-      "Only one ingredient can be processed at a time. Please complete the current operation first."
-    ).subscribe(() => this.hidePopupDialog());
-  }
-
-  hidePopupDialog(): void {
-    this.dialogOverlayService.close();
-  }
+  currentStep = signal<'stepOne' | 'stepTwo'>('stepOne');
+  
 
   goToHome(): void {
     this.router.navigate(['home']);
+  }
+
+  goToStepTwo(): void {
+    this.currentStep.set('stepTwo');
+  }
+
+  goToStepOne(): void {
+    this.currentStep.set('stepOne');
   }
 
 }
