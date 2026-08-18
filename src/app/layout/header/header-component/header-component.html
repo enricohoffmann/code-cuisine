@@ -1,4 +1,6 @@
 <header class="app-header mt-32">
-    <div class="app-header-icon" 
-        [ngClass]="(headerVariant() == 'white' ? 'app-header-icon--white' : 'app-header-icon--colored')"></div>
+    <div class="app-header-icon" [class.app-header-icon--clickable]="isClickable()"
+        [ngClass]="(headerVariant() == 'white' ? 'app-header-icon--white' : 'app-header-icon--colored')"
+        (click)="headIconClick()"
+        ></div>
 </header>

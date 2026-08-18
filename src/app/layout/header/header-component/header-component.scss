@@ -20,6 +20,10 @@
     &--white {
         @include mixins.setup-image('/assets/icons/logo-white.svg');
     }
+
+    &--clickable {
+        cursor: pointer;
+    }
     
 }
 

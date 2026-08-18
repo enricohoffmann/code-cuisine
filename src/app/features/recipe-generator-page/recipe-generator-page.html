@@ -1,6 +1,10 @@
 <div class="white-wrapper">
     <section class="generator-section">
-        <app-header-component [headerVariant]="'colored'"></app-header-component>
+        <app-header-component 
+            [headerVariant]="'colored'"
+            (headerIconEvent)="goToHome()"
+            [isClickable]="true"
+            ></app-header-component>
 
         <h1>Generate recipe</h1>
         <p class="generator-description">Got random stuff in your kitchen? Pop it in—we’ve got the perfect recipe waiting.</p>

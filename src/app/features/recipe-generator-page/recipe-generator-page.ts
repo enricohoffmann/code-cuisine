@@ -10,6 +10,7 @@ import { IngredientModel } from '../../models/ingredient-model';
 import { IngredientsListItemComponent } from '../../shared/components/ingredients-list-item-component/ingredients-list-item-component';
 import { DialogOverlayService } from '../../services/dialog-overlay-service';
 import { ButtonComponent } from "../../shared/components/button-component/button-component";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -50,6 +51,8 @@ export class RecipeGeneratorPage {
   isSubmitted = signal<boolean>(false);
 
   private readonly dialogOverlayService = inject(DialogOverlayService);
+
+  private readonly router = inject(Router);
 
   onChooseUnit(unit: UnitVariant): void {
     this.currentUnit.set(unit);
@@ -186,6 +189,10 @@ export class RecipeGeneratorPage {
 
   hidePopupDialog(): void {
     this.dialogOverlayService.close();
+  }
+
+  goToHome(): void {
+    this.router.navigate(['home']);
   }
 
 }

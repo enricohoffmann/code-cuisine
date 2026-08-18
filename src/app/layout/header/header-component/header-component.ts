@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ColorVariant } from '../../../shared/utils/types';
 import { NgClass } from '@angular/common';
 
@@ -10,4 +10,10 @@ import { NgClass } from '@angular/common';
 })
 export class HeaderComponent {
   headerVariant = input.required<ColorVariant>();
+  headerIconEvent = output<void>();
+  isClickable = input<boolean>(false);
+
+  headIconClick(): void {
+    this.headerIconEvent.emit();
+  }
 }
