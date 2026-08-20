@@ -1,2 +1,11 @@
 
 <h3>Choose your preferences</h3>
+
+<app-quantity-selector-component
+    [quantityType]="'Portions'"
+    [quantityValue]="portionsValue()"
+    (quantityAdd)="addPortion()"
+    (quantityRemove)="removePortion()"
+>
+    How many portions you need?
+</app-quantity-selector-component>

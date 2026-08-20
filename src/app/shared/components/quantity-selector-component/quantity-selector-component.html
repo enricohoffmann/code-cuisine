@@ -1,0 +1,15 @@
+<ng-content></ng-content>
+
+<div class="selector-elements">
+    <button class="selector-button selector-button--minus" type="button" (click)="onQuantityRemove()">
+        <div></div>
+    </button>
+
+    <span class="quantity-value">{{quantityValue()}}</span>
+
+    <span>{{quantityType()}}</span>
+
+    <button class="selector-button selector-button--plus" type="button" (click)="onQuantityAdd()">
+        <div></div>
+    </button>
+</div>
