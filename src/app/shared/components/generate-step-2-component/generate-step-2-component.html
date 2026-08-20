@@ -1,11 +1,20 @@
-
 <h3>Choose your preferences</h3>
 
-<app-quantity-selector-component
-    [quantityType]="'Portions'"
-    [quantityValue]="portionsValue()"
-    (quantityAdd)="addPortion()"
-    (quantityRemove)="removePortion()"
->
-    How many portions you need?
-</app-quantity-selector-component>
+<section class="selector-section">
+    <app-quantity-selector-component [quantityType]="'Portions'" [quantityValue]="portionsValue()"
+        (quantityAdd)="addPortion()" (quantityRemove)="removePortion()">
+        How many portions you need?
+    </app-quantity-selector-component>
+
+    <app-quantity-selector-component [quantityType]="'Person'" [quantityValue]="chefsValue()"
+        (quantityAdd)="addChef()" (quantityRemove)="removeChef()">
+        How many are cooking?
+    </app-quantity-selector-component>
+
+</section>
+
+<section class="preferences-section">
+
+</section>
+
+<app-button-component>Generate a recipe</app-button-component>
