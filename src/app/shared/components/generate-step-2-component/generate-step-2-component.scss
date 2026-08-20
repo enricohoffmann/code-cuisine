@@ -11,7 +11,7 @@
 h3 {
     font-size: clamp(1.50rem, calc(1.429rem + 0.357vw), 1.75rem);
     line-height: 65px;
-    margin-top: 64px;
+    margin-top: 16px;
     margin-bottom: 42px;
     padding-left: 16px;
     padding-right: 16px;
@@ -26,8 +26,19 @@ h3 {
     margin-top: 24px;
     padding: 32px 24px;
     width: 100%;
-    height: 100px;
     background-color: rgba(57, 96, 57, 0.2);
     border-radius: 20px;
+
+    app-preference-component {
+        display: block;
+    }
 }
+
+.generate-button {
+    display: block;
+    margin-top: 42px;
+    margin-bottom: 42px;
+}
+
+
 

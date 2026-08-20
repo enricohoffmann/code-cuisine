@@ -14,7 +14,9 @@
 </section>
 
 <section class="preferences-section">
-
+    <app-preference-component [preference]="timePreferences()!" class="mb-32"></app-preference-component>
+    <app-preference-component [preference]="cuisinePreferences()!" class="mb-32"></app-preference-component>
+    <app-preference-component [preference]="dietPreferences()!"></app-preference-component>
 </section>
 
-<app-button-component>Generate a recipe</app-button-component>
+<app-button-component [buttonVariant]="'dark'" class="generate-button">Generate a recipe</app-button-component>

@@ -10,7 +10,7 @@
     @include mixins.setup-font('Quicksand', clamp(1.00rem, calc(0.857rem + 0.714vw), 1.50rem), 600, rgba(0, 128, 0, 1));
     transition: background-color 125ms ease-in, transform 300ms ease-in;
 
-    &--bright {
+    &__bright {
         color: rgba(0, 128, 0, 1);
         background-color: rgba(250, 240, 230, 1);
 
@@ -20,13 +20,29 @@
         }
     }
 
-    &--dark {
+    &__dark {
         color: rgba(250, 240, 230, 1);
         background-color: rgba(57, 96, 57, 1);
 
         &:hover {
             background-color: rgba(57, 96, 57, 0.9);
             transform: scaleX(1.05);
+        }
+    }
+
+    &__characteristic {
+        font-size: 20px;
+        color: rgba(30, 85, 21, 1);
+        padding: 6px 12px;
+        background-color: rgba(250, 240, 230, 1);
+        border-radius: 30px;
+
+        &--active {
+            background-color: rgba(183, 197, 183, 1);
+        }
+
+        &:hover:not(.btn__characteristic--active) {
+            background-color: rgba(250, 224, 198, 1);
         }
     }
 

@@ -1,0 +1,21 @@
+
+<section class="preference-section">
+    <img src="{{preference().headlineIconUrl}}" alt="">
+    <p>{{preference().headline}}</p>
+</section>
+
+<section class="characteristic-section">
+    @for(characteristic of preference().characteristics; track $index){
+        <div class="characteristic-container">
+             <app-button-component [buttonVariant]="'characteristic'">
+                {{characteristic.characteristic}}
+            </app-button-component>
+            @if(characteristic.description !== null){
+                <span>{{characteristic.description}}</span>
+            }
+        </div>
+       
+    }
+</section>
+
+

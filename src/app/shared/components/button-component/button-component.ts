@@ -8,5 +8,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './button-component.scss',
 })
 export class ButtonComponent {
-  buttonVariant = input<'bright' | 'dark'>('bright');
+  buttonVariant = input<'bright' | 'dark' | 'characteristic'>('bright');
 }

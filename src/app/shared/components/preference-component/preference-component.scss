@@ -1,0 +1,27 @@
+@use 'abstracts/variables' as var;
+@use 'abstracts/mixins' as mixins;
+
+.preference-section {
+    @include mixins.setup-display-flex(row, flex-start, center, 6px);
+    @include mixins.setup-font('Quicksand', 24px, 600, rgba(16, 49, 11, 1));
+    margin-bottom: 16px;
+}
+
+.preference-section > img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.characteristic-section {
+    @include mixins.setup-display-flex(row, flex-start, center, 16px);
+}
+
+.characteristic-container {
+    @include mixins.setup-display-flex(column, center, center, 8px);
+
+    & > span {
+        @include mixins.setup-font('Quicksand', 16px, 500, rgba(30, 85, 21, 1));
+    }
+}
