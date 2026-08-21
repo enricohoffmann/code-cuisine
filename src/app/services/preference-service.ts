@@ -71,7 +71,19 @@ export class PreferenceService {
     });
   }
 
-  changeSelection(characteristicId: number, preference: WritableSignal<Preference | null>): void {
+  changeTimeSelection(id: number) {
+    this.changeSelection(id, this.timePreferences);
+  }
+
+  changeCuisineSelection(id: number){
+    this.changeSelection(id, this.cuisinePreferences);
+  }
+
+  changeDietSelection(id: number) {
+    this.changeSelection(id, this.dietPreferences);
+  }
+
+  private changeSelection(characteristicId: number, preference: WritableSignal<Preference | null>): void {
     preference.update((items) => {
       if (!items) { return null; }
 

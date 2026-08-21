@@ -17,16 +17,16 @@
     <app-preference-component 
         [preference]="preferenceService.timePreferences()!" 
         class="mb-32"
-        (changeSelection)="preferenceService.changeSelection($event, preferenceService.timePreferences)"
+        (changeSelection)="preferenceService.changeTimeSelection($event)"
         ></app-preference-component>
     <app-preference-component 
         [preference]="preferenceService.cuisinePreferences()!" 
         class="mb-32"
-        (changeSelection)="preferenceService.changeSelection($event, preferenceService.cuisinePreferences)"
+        (changeSelection)="preferenceService.changeCuisineSelection($event)"
         ></app-preference-component>
     <app-preference-component 
         [preference]="preferenceService.dietPreferences()!"
-        (changeSelection)="preferenceService.changeSelection($event, preferenceService.dietPreferences)"
+        (changeSelection)="preferenceService.changeDietSelection($event)"
         ></app-preference-component>
 </section>
 
