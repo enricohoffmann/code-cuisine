@@ -10,3 +10,8 @@ export type IngredientForm = {
     unit: FormControl<UnitVariant>;
 }
 
+export type CharacteristicSource = {
+  name: string;
+  description: string;
+};
+
