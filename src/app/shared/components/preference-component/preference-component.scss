@@ -15,10 +15,15 @@
 }
 
 .characteristic-section {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
     @include mixins.setup-display-flex(row, flex-start, center, 16px);
+    flex-wrap: wrap;
 }
 
 .characteristic-container {
+    box-sizing: border-box;
     @include mixins.setup-display-flex(column, center, center, 8px);
 
     & > span {
