@@ -1,13 +1,13 @@
 <h3>Choose your preferences</h3>
 
 <section class="selector-section">
-    <app-quantity-selector-component [quantityType]="'Portions'" [quantityValue]="portionsValue()"
-        (quantityAdd)="addPortion()" (quantityRemove)="removePortion()">
+    <app-quantity-selector-component [quantityType]="'Portions'" [quantityValue]="quantityService.portionsValue()"
+        (quantityAdd)="quantityService.addPortion()" (quantityRemove)="quantityService.removePortion()">
         How many portions you need?
     </app-quantity-selector-component>
 
-    <app-quantity-selector-component [quantityType]="'Person'" [quantityValue]="chefsValue()"
-        (quantityAdd)="addChef()" (quantityRemove)="removeChef()">
+    <app-quantity-selector-component [quantityType]="'Person'" [quantityValue]="quantityService.chefsValue()"
+        (quantityAdd)="quantityService.addChef()" (quantityRemove)="quantityService.removeChef()">
         How many are cooking?
     </app-quantity-selector-component>
 
@@ -30,4 +30,8 @@
         ></app-preference-component>
 </section>
 
-<app-button-component [buttonVariant]="'dark'" class="generate-button">Generate a recipe</app-button-component>
+<app-button-component 
+    [buttonVariant]="'dark'" 
+    class="generate-button"
+    (click)="onGenerateButtonClick()"
+    >Generate a recipe</app-button-component>

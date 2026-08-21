@@ -1,6 +1,7 @@
-import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal, computed } from '@angular/core';
 import { Characteristic, Preference } from '../interfaces/preference-interface';
 import { CharacteristicSource } from '../shared/utils/types';
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +16,12 @@ export class PreferenceService {
   private readonly DIET_NAMES: string[] = ['Vegetarian', 'Vegan', 'Keto', 'No preferences'];
 
   timePreferences = signal<Preference | null>(null);
+  selectedTimeCharacer = signal<Characteristic | null>(null);
   cuisinePreferences = signal<Preference | null>(null);
+  selectedCuisineCharacter = signal<Characteristic | null>(null);
   dietPreferences = signal<Preference | null>(null);
-  selectedTimePreference = signal<Characteristic | null>(null);
-  selectedCuisinePreference = signal<Characteristic | null>(null);
-  selectedDietPreference = signal<Characteristic | null>(null);
+  selectedDietCharacter = signal<Characteristic | null>(null);
+
 
   constructor() {
     this.createPreferences();
@@ -72,15 +74,24 @@ export class PreferenceService {
   }
 
   changeTimeSelection(id: number) {
+    const currentTimeSelection = this.timePreferences()?.characteristics.find(t => t.id === id);
+    if (!currentTimeSelection) { return; }
     this.changeSelection(id, this.timePreferences);
+    this.selectedTimeCharacer.set(currentTimeSelection);
   }
 
-  changeCuisineSelection(id: number){
+  changeCuisineSelection(id: number) {
+    const currentCuisineSelection = this.cuisinePreferences()?.characteristics.find(c => c.id === id);
+    if(!currentCuisineSelection) {return;}
     this.changeSelection(id, this.cuisinePreferences);
+    this.selectedCuisineCharacter.set(currentCuisineSelection);
   }
 
   changeDietSelection(id: number) {
+    const currentDietSelection = this.dietPreferences()?.characteristics.find(d => d.id === id);
+    if(!currentDietSelection) {return;}
     this.changeSelection(id, this.dietPreferences);
+    this.selectedDietCharacter.set(currentDietSelection);
   }
 
   private changeSelection(characteristicId: number, preference: WritableSignal<Preference | null>): void {
@@ -94,7 +105,7 @@ export class PreferenceService {
         )
       };
     });
-  
+
   }
 
 }

@@ -12,7 +12,9 @@
             <app-call-to-action [callToActionVariant]="'backward'" [colorVariant]="'colored'"
                 (actionButtonEvent)="goToStepOne()">Ingredients</app-call-to-action>
 
-            <app-generate-step-2-component></app-generate-step-2-component>
+            <app-generate-step-2-component
+                (generateRecipeEvent)="startGenerateRecipe()"
+            ></app-generate-step-2-component>
         }
 
     </section>
