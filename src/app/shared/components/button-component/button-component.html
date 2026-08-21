@@ -1,3 +1,7 @@
-<button type="button" class="btn" [ngClass]="`btn__${buttonVariant()}`">
+<button 
+    type="button" 
+    class="btn" 
+    [ngClass]="`btn__${buttonVariant()}`" 
+    [class.btn__characteristic--active]="isSelected()">
     <ng-content></ng-content>
 </button>

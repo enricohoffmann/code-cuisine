@@ -3,6 +3,7 @@ export interface Characteristic {
     id: number;
     characteristic: string;
     description: string | null;
+    selected: boolean;
 }
 
 

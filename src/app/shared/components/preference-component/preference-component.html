@@ -7,7 +7,11 @@
 <section class="characteristic-section">
     @for(characteristic of preference().characteristics; track $index){
         <div class="characteristic-container">
-             <app-button-component [buttonVariant]="'characteristic'">
+             <app-button-component 
+                [buttonVariant]="'characteristic'" 
+                (click)="onSelectionClick(characteristic.id)"
+                [isSelected]="characteristic.selected"
+                >
                 {{characteristic.characteristic}}
             </app-button-component>
             @if(characteristic.description !== null){

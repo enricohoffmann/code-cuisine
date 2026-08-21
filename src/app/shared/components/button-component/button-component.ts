@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-button-component',
@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core';
 })
 export class ButtonComponent {
   buttonVariant = input<'bright' | 'dark' | 'characteristic'>('bright');
+  isSelected = input<boolean>(false);
 }

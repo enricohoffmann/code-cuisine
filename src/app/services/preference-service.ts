@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { Characteristic, Preference } from '../interfaces/preference-interface';
 import { CharacteristicSource } from '../shared/utils/types';
 
@@ -64,11 +64,25 @@ export class PreferenceService {
   private createCharacteristics(names: string[] | CharacteristicSource[]): Characteristic[] {
     return names.map((item, index) => {
       if (typeof item === 'string') {
-        return { id: index, characteristic: item, description: null };
+        return { id: index, characteristic: item, description: null, selected: false };
       }
 
-      return { id: index, characteristic: item.name, description: item.description ?? null };
+      return { id: index, characteristic: item.name, description: item.description, selected: false };
     });
+  }
+
+  changeSelection(characteristicId: number, preference: WritableSignal<Preference | null>): void {
+    preference.update((items) => {
+      if (!items) { return null; }
+
+      return {
+        ...items,
+        characteristics: items.characteristics.map((item) =>
+          item.id === characteristicId ? { ...item, selected: true } : { ...item, selected: false }
+        )
+      };
+    });
+  
   }
 
 }

@@ -14,9 +14,20 @@
 </section>
 
 <section class="preferences-section">
-    <app-preference-component [preference]="preferenceService.timePreferences()!" class="mb-32"></app-preference-component>
-    <app-preference-component [preference]="preferenceService.cuisinePreferences()!" class="mb-32"></app-preference-component>
-    <app-preference-component [preference]="preferenceService.dietPreferences()!"></app-preference-component>
+    <app-preference-component 
+        [preference]="preferenceService.timePreferences()!" 
+        class="mb-32"
+        (changeSelection)="preferenceService.changeSelection($event, preferenceService.timePreferences)"
+        ></app-preference-component>
+    <app-preference-component 
+        [preference]="preferenceService.cuisinePreferences()!" 
+        class="mb-32"
+        (changeSelection)="preferenceService.changeSelection($event, preferenceService.cuisinePreferences)"
+        ></app-preference-component>
+    <app-preference-component 
+        [preference]="preferenceService.dietPreferences()!"
+        (changeSelection)="preferenceService.changeSelection($event, preferenceService.dietPreferences)"
+        ></app-preference-component>
 </section>
 
 <app-button-component [buttonVariant]="'dark'" class="generate-button">Generate a recipe</app-button-component>
